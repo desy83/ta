@@ -19,8 +19,6 @@ class GameHandler(asyncore.dispatcher_with_send):
         self.authstep = 0
         self.send(Welcome.write(address))
         self.send(Auth.username())
-        #self.set_char_mode(True)
-
 
     def set_char_mode(self, mode=True):
         if mode:
@@ -75,6 +73,9 @@ class GameHandler(asyncore.dispatcher_with_send):
     def send_data(self, data):
         self.send(data)
 
+    def __del__(self):
+        print 'raus'
+
 
 class GameServer(asyncore.dispatcher):
 
@@ -94,3 +95,6 @@ class GameServer(asyncore.dispatcher):
             print 'Incoming connection from %s' % repr(addr)
             self.connections[addr] = GameHandler(pair)
 
+    def handle_close(self):
+        #FIXME: server has no knowlegde about closed connections
+        self.close()

@@ -1,6 +1,8 @@
 from config import *
 import time
 
+LINE = '\n\r______________________________________________\n\r'
+
 class RenderBase(object):
     def __init__(self):
         pass
@@ -19,7 +21,7 @@ class Welcome(RenderBase):
 class Header(RenderBase):
     @staticmethod
     def write(data):
-       return "TA-Server / Time: %s, Client: %s\n\r______________________________________________\n\r" % (time.strftime('%X'), data[0])
+       return "TA-Server / Time: %s, Client: %s" % (time.strftime('%X'), data[0]) + LINE
     def read(self):
         pass
 
@@ -44,3 +46,12 @@ class Error(RenderBase):
     @staticmethod
     def error(data):
        pass
+
+class OnlineUsers(RenderBase):
+    @staticmethod
+    def write(handlers):
+        users = []
+        for handler in handlers:
+            if handler.username and handler.auth:
+                users.append(handler.username)
+        return 'Online Users: ' + ' '.join(users) + LINE
