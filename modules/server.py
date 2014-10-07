@@ -1,3 +1,6 @@
+from modules.render import Header, Auth, Welcome
+from config import *
+
 import asyncore
 import socket
 import time
@@ -10,8 +13,13 @@ class GameHandler(asyncore.dispatcher_with_send):
         asyncore.dispatcher_with_send.__init__(self, connection)
         self.__address = address
         self.__last_called = float()
-        self.auth = True
-        self.set_char_mode(True)
+        self.username = None
+        self.password = None
+        self.auth = False
+        self.authstep = 0
+        self.send(Welcome.write(address))
+        self.send(Auth.username())
+        #self.set_char_mode(True)
 
 
     def set_char_mode(self, mode=True):
@@ -33,6 +41,34 @@ class GameHandler(asyncore.dispatcher_with_send):
     def handle_read(self):
         data = self.recv(BUFFER_SIZE)
         if data:
+            datastrip = data.strip()
+            if not self.auth:
+                if self.authstep == 0:
+                    try:
+                        user = Users.get(Users.username == datastrip)
+                        self.username = user.username
+                        self.password = user.password
+                        self.send(Auth.password())
+                    except:
+                        self.username = datastrip
+                        self.send(Auth.newpassword())
+                    self.authstep = 1
+                elif self.authstep == 1:
+                    if self.password and self.password == datastrip:
+                        self.auth = True
+                        self.set_char_mode(True)
+                        print 'passwort access'
+                    elif self.password and self.password <> datastrip:
+                        self.authstep = 0
+                        print 'falsches pw'
+                        self.send(Auth.username())
+                    else:
+                        try:
+                            Users.create(username=self.username, password=datastrip)
+                            print 'new user create'
+                        except Exception, e:
+                            print e
+
             print '[%s] %s' % (self.__address[0], data)
 
     def send_data(self, data):

@@ -11,6 +11,14 @@ class RenderBase(object):
     def read(self):
         pass
 
+class Welcome(RenderBase):
+    @staticmethod
+    def write(data):
+        return '''
+                Welcome %s to TA-MUD
+                Please Login and have fun
+                ''' % (data[0],)
+
 class Header(RenderBase):
     @staticmethod
     def write(data):
@@ -20,6 +28,13 @@ class Header(RenderBase):
 
 class Auth(RenderBase):
     @staticmethod
-    def write():
+    def username():
         return 'username: '
 
+    @staticmethod
+    def password():
+        return 'password: '
+
+    @staticmethod
+    def newpassword():
+        return 'new password: '
