@@ -1,12 +1,7 @@
 from modules.server import GameServer
+from lib.static import *
 import asyncore
 import time
-
-class VT100Codes:
-    ESC = chr(27)
-    JMPHOME = ESC+"[H"
-    CLEARSCRN = ESC+"[2J"
-    CLEARDOWN = ESC+"[J"
 
 game_server = GameServer('', 6900)
 
