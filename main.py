@@ -1,4 +1,5 @@
 from modules.server import GameServer
+from modules.render import Header, Auth
 from lib.static import *
 from config import *
 
@@ -7,7 +8,7 @@ import time
 
 class GameMain(object):
     def __init__(self):
-        self.game_server = GameServer('', 6900)
+        self.game_server = game_server
         try:
             db.connect()
             #FIXME: create all necessary tables if not exists
@@ -18,10 +19,16 @@ class GameMain(object):
     def run(self):
         #NOTE game loop
         while True:
-            for addr,handler in self.game_server.connections.items():
+            for addr, handler in self.game_server.connections.items():
                 handler.send_data(VT100Codes.CLEARSCRN)
                 handler.send_data(VT100Codes.JMPHOME)
-                handler.send_data("TA-Server / Time: %s, Client: %s\n\r_____________________________________\n\rDwarf - Fritz - Fraz" % (time.strftime('%X'), addr[0]))
+
+                if handler.auth:
+                    handler.send_data(Header.write(addr))
+                    handler.send_data(Auth.write())
+                    # auth stuff
+                else:
+                    handler.send_data(Header.write(addr))
             asyncore.loop(timeout = 0.1, count = 1)
 
 server = GameMain()

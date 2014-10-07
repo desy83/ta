@@ -10,14 +10,25 @@ class GameHandler(asyncore.dispatcher_with_send):
         asyncore.dispatcher_with_send.__init__(self, connection)
         self.__address = address
         self.__last_called = float()
+        self.auth = True
+        self.set_char_mode(True)
 
-        # iac wont linemode
-        self.send("\377\375\042")
-        # iac will suppress-goahead
-        self.send("\377\373\3")
-        # iac do suppress-goahead
-        self.send("\377\375\3")
 
+    def set_char_mode(self, mode=True):
+        if mode:
+            # iac wont linemode
+            self.send("\377\375\042")
+            # iac will suppress-goahead
+            self.send("\377\373\3")
+            # iac do suppress-goahead
+            self.send("\377\375\3")
+        else:
+            # iac will linemode
+            self.send("\377\373\042")
+            # iac wont suppress-goahead
+            self.send("\377\375\3")
+            # iac dont suppress-goahead
+            self.send("\377\376\3")
 
     def handle_read(self):
         data = self.recv(BUFFER_SIZE)
