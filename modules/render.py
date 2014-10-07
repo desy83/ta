@@ -14,10 +14,7 @@ class RenderBase(object):
 class Welcome(RenderBase):
     @staticmethod
     def write(data):
-        return '''
-                Welcome %s to TA-MUD
-                Please Login and have fun
-                ''' % (data[0],)
+        return '\n### Welcome %s to TA-MUD ###\n### Please Login and have fun ###\n\n' % (data[0],)
 
 class Header(RenderBase):
     @staticmethod
@@ -38,3 +35,12 @@ class Auth(RenderBase):
     @staticmethod
     def newpassword():
         return 'new password: '
+
+    @staticmethod
+    def error(data):
+        return '\nError: %s\n\n' % (data,)
+
+class Error(RenderBase):
+    @staticmethod
+    def error(data):
+       pass

@@ -57,15 +57,16 @@ class GameHandler(asyncore.dispatcher_with_send):
                     if self.password and self.password == datastrip:
                         self.auth = True
                         self.set_char_mode(True)
-                        print 'passwort access'
                     elif self.password and self.password <> datastrip:
                         self.authstep = 0
-                        print 'falsches pw'
+                        self.password = None
+                        self.send(Auth.error('wrong password'))
                         self.send(Auth.username())
                     else:
                         try:
                             Users.create(username=self.username, password=datastrip)
-                            print 'new user create'
+                            self.auth = True
+                            self.set_char_mode(True)
                         except Exception, e:
                             print e
 
