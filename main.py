@@ -13,7 +13,7 @@ class GameMain(object):
         try:
             db.connect()
             #FIXME: create all necessary tables if not exists
-            db.create_tables([Users, Classes, Races, Char])
+            db.create_tables([Users, Classes, Races, Char, Items, CharItem, Sort])
         except Exception, e:
             print e
 

@@ -20,7 +20,7 @@ class Classes(BaseModel):
     knowledge = IntegerField()
 
 class Races(BaseModel):
-    name = CharFiled()
+    name = CharField()
     healt = IntegerField()
     endurence = IntegerField()
     strength = IntegerField()
@@ -28,13 +28,20 @@ class Races(BaseModel):
     wisdom = IntegerField()
     knowledge = IntegerField()
 
-class Skills(BaseModel):
-    name = CharField()
-    info = TextField()
-        
-
 class Char(BaseModel):
-	class = ForeignKeyField(Classes)
-    race = ForeignKeyField(Races)
-    
-    
+    user = ForeignKeyField(Users)
+    charclass = ForeignKeyField(Classes)
+ 
+class Sort(BaseModel):
+    sort = CharField() #healtpot
+    info = TextField()
+
+class Items(BaseModel):
+    name = CharField()
+    sort = ForeignKeyField(Sort)
+
+class CharItem(BaseModel):
+    char = ForeignKeyField(Char)
+    item = ForeignKeyField(Items)
+    amount = IntegerField()
+   
