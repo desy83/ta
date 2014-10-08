@@ -1,0 +1,32 @@
+{
+'Dwarf': {
+	'name' : 'Dwarf',
+    'health' = 14,
+    'endurence' = 6,
+    'strength' = 7,
+    'dexterity' = 5,
+    'wisdom' = 3,
+    'knowledge' = 3,
+	}
+
+'Human': {
+    'name' : 'Human',
+    'health' = 12,
+    'endurence' = 5,
+    'strength' = 6,
+    'dexterity' = 4,
+    'wisdom' = 4,
+    'knowledge' = 4,
+    }
+
+'Elb': {
+    'name' : 'Elb',
+    'health' = 10,
+    'endurence' = 6,
+    'strength' = 4,
+    'dexterity' = 4,
+    'wisdom' = 5,
+    'knowledge' = 5,
+    }
+
+}
