@@ -8,14 +8,10 @@ from config import *
 import asyncore
 import time
 
-
-# one static world
-world = World()
-
-
 class GameMain(object):
     def __init__(self):
-        self.game_server = GameServer('', 6900)
+        self.world = World()
+        self.game_server = GameServer('', 6900, self.world)
         try:
             db.connect()
             #FIXME: create all necessary tables if not exists
@@ -37,7 +33,7 @@ class GameMain(object):
                     handler.send_data(VT100Codes.JMPHOME)
                     handler.send_data(Header.write(addr))
                     handler.send_data(OnlineUsers.write(self.game_server.connections.values()))
-                    handler.send_data(world.get_zone(0, 0).render())
+                    handler.send_data(handler.entity.render_world())
                     handler.run = False
             self.game_server.connections = new_connections
             asyncore.loop(timeout = 0.1, count = 1)

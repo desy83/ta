@@ -9,7 +9,7 @@ BUFFER_SIZE = 8192
 CONNECTION_SIZE = 5
 
 class GameHandler(asyncore.dispatcher_with_send):
-    def __init__(self, (connection, address)):
+    def __init__(self, (connection, address), world):
         asyncore.dispatcher_with_send.__init__(self, connection)
         self.__address = address
         self.__last_called = float()
@@ -19,6 +19,8 @@ class GameHandler(asyncore.dispatcher_with_send):
         self.auth = False
         self.run = False
         self.authstep = 0
+        self.world = world
+        self.entity = world.add_entity(0, 0, 10, 10) # player entity
         self.send(Welcome.write(address))
         self.send(Auth.username())
 
@@ -69,6 +71,17 @@ class GameHandler(asyncore.dispatcher_with_send):
                             self.set_char_mode(True)
                         except Exception, e:
                             print e
+            else:
+                key = datastrip
+                if key in ('w', 'W', '8'):
+                    self.entity.move(0, -1)
+                elif key in ('s', 'S', '2'):
+                    self.entity.move(0, 1)
+                elif key in ('a', 'A', '4'):
+                    self.entity.move(-1, 0)
+                elif key in ('d', 'D', '6'):
+                    self.entity.move(1, 0)
+
             self.run = True
             print '[%s] %s' % (self.__address[0], data)
 
@@ -81,7 +94,7 @@ class GameHandler(asyncore.dispatcher_with_send):
 
 class GameServer(asyncore.dispatcher):
 
-    def __init__(self, host, port):
+    def __init__(self, host, port, world):
         asyncore.dispatcher.__init__(self)
         self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
         self.set_reuse_addr()
@@ -89,13 +102,14 @@ class GameServer(asyncore.dispatcher):
         self.listen(CONNECTION_SIZE)
         self.handler = None
         self.connections = dict()
+        self.world = world
 
     def handle_accept(self):
         pair = self.accept()
         if pair is not None:
             sock, addr = pair
             print 'Incoming connection from %s' % repr(addr)
-            self.connections[addr] = GameHandler(pair)
+            self.connections[addr] = GameHandler(pair, self.world)
 
     def handle_close(self):
         self.close()
