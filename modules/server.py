@@ -17,6 +17,7 @@ class GameHandler(asyncore.dispatcher_with_send):
         self.username = None
         self.password = None
         self.auth = False
+        self.run = False
         self.authstep = 0
         self.send(Welcome.write(address))
         self.send(Auth.username())
@@ -68,7 +69,7 @@ class GameHandler(asyncore.dispatcher_with_send):
                             self.set_char_mode(True)
                         except Exception, e:
                             print e
-
+            self.run = True
             print '[%s] %s' % (self.__address[0], data)
 
     def send_data(self, data):
