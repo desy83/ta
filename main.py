@@ -24,6 +24,8 @@ class GameMain(object):
         while True:
             new_connections = {}
             for addr, handler in self.game_server.connections.items():
+                # maybe place tick somewhere else, but it works
+                handler.tick()
                 if handler.shutdown:
                     del handler
                     continue
