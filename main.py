@@ -26,11 +26,12 @@ class GameMain(object):
                     del handler
                     continue
                 new_connections[addr] = handler
-                if handler.auth:
+                if handler.auth and self.run:
                     handler.send_data(VT100Codes.CLEARSCRN)
                     handler.send_data(VT100Codes.JMPHOME)
                     handler.send_data(Header.write(addr))
                     handler.send_data(OnlineUsers.write(self.game_server.connections.values()))
+                    handler.run = False
             self.game_server.connections = new_connections
             asyncore.loop(timeout = 0.1, count = 1)
 
