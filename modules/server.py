@@ -21,6 +21,16 @@ class GameHandler(asyncore.dispatcher_with_send):
         self.authstep = 0
         self.send(Welcome.write(address))
         self.send(Auth.username())
+        self.last_time = time.time()
+
+    def tick(self):
+        current_time = time.time()
+        delta = current_time - self.last_time
+        #NOTE: current one second, make it more granular
+        if delta > 1:
+            self.run = True
+            self.last_time = current_time
+
 
     def set_char_mode(self, mode=True):
         if mode:
