@@ -20,13 +20,18 @@ class GameMain(object):
     def run(self):
         #NOTE game loop
         while True:
+            new_connections = {}
             for addr, handler in self.game_server.connections.items():
-
+                if handler.shutdown:
+                    del handler
+                    continue
+                new_connections[addr] = handler
                 if handler.auth:
                     handler.send_data(VT100Codes.CLEARSCRN)
                     handler.send_data(VT100Codes.JMPHOME)
                     handler.send_data(Header.write(addr))
                     handler.send_data(OnlineUsers.write(self.game_server.connections.values()))
+            self.game_server.connections = new_connections
             asyncore.loop(timeout = 0.1, count = 1)
 
 server = GameMain()

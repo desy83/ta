@@ -13,6 +13,7 @@ class GameHandler(asyncore.dispatcher_with_send):
         asyncore.dispatcher_with_send.__init__(self, connection)
         self.__address = address
         self.__last_called = float()
+        self.shutdown = False
         self.username = None
         self.password = None
         self.auth = False
@@ -73,9 +74,9 @@ class GameHandler(asyncore.dispatcher_with_send):
     def send_data(self, data):
         self.send(data)
 
-    def __del__(self):
-        print 'raus'
-
+    def handle_close(self):
+        self.close()
+        self.shutdown = True
 
 class GameServer(asyncore.dispatcher):
 
@@ -96,5 +97,4 @@ class GameServer(asyncore.dispatcher):
             self.connections[addr] = GameHandler(pair)
 
     def handle_close(self):
-        #FIXME: server has no knowlegde about closed connections
         self.close()
