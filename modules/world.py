@@ -25,12 +25,25 @@ class World(object):
         return zone
 
 
+class Entity(object):
+    def __init__(self, x, y):
+        pass
+
+
 class Zone(object):
     def __init__(self, zone_x, zone_y):
+        # entity list
+        self._entities = []
         # map is constructed by a map using indices y*ZONE_WIDTH+x
         self._map = {}
         random.seed(WORLD_SEED * (zone_x + zone_y))
         self.clear()
+        for x in range(ZONE_WIDTH):
+            self.set(x, 0, 1)
+            self.set(x, ZONE_HEIGHT-1, 1)
+        for y in range(ZONE_HEIGHT):
+            self.set(0, y, 1)
+            self.set(ZONE_WIDTH-1, y, 1)
         for i in range(random.randint(20, 100)):
             self.set(random.randint(0, ZONE_WIDTH-1), random.randint(0, ZONE_HEIGHT-1), 1)
     def clear(self):
@@ -38,10 +51,10 @@ class Zone(object):
             for y in range(ZONE_HEIGHT):
                 self.set(x, y, 0)
     def set(self, x, y, tile):
-        self._map[y * ZONE_HEIGHT + x] = tile
+        self._map[y * ZONE_WIDTH + x] = tile
     def get(self, x, y):
         if (0 <= x < ZONE_WIDTH) and (0 <= y < ZONE_HEIGHT):
-            return self._map[y * ZONE_HEIGHT + x]
+            return self._map[y * ZONE_WIDTH + x]
         else:
             return 0
 
@@ -51,6 +64,5 @@ class Zone(object):
             for x in range(ZONE_WIDTH):
                 data.append(TILES.get(self.get(x, y), ' '))
             data.append('\n')
-        print ''.join(data)
         return ''.join(data)
 

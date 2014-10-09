@@ -2,10 +2,16 @@ from modules.server import GameServer
 from modules.render import Header, Auth, OnlineUsers
 from lib.static import *
 from modules.server import GameServer
+from modules.world import World
 from config import *
 
 import asyncore
 import time
+
+
+# one static world
+world = World()
+
 
 class GameMain(object):
     def __init__(self):
@@ -26,14 +32,16 @@ class GameMain(object):
                     del handler
                     continue
                 new_connections[addr] = handler
-                if handler.auth and self.run:
+                if handler.auth and handler.run:
                     handler.send_data(VT100Codes.CLEARSCRN)
                     handler.send_data(VT100Codes.JMPHOME)
                     handler.send_data(Header.write(addr))
                     handler.send_data(OnlineUsers.write(self.game_server.connections.values()))
+                    handler.send_data(world.get_zone(0, 0).render())
                     handler.run = False
             self.game_server.connections = new_connections
             asyncore.loop(timeout = 0.1, count = 1)
 
 server = GameMain()
 server.run()
+
