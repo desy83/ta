@@ -71,6 +71,9 @@ class Entity(object):
         if newy >= ZONE_HEIGHT:
             newy = 0
             zoney = zoney + 1
+        # check collission
+        if self._world.get_zone(zonex, zoney).collide(newx, newy):
+            return
         # unlink from old pos
         self._world.get_zone(self.zone_x, self.zone_y).remove_entity(self)
         # update pos
@@ -120,6 +123,13 @@ class Zone(object):
             self._tilemap.set_cell(ZONE_WIDTH-1, y, 1)
         for i in range(random.randint(20, 100)):
             self._tilemap.set_cell(random.randint(0, ZONE_WIDTH-1), random.randint(0, ZONE_HEIGHT-1), 1)
+
+    def collide(self, x, y):
+        if self._tilemap.get_cell(x, y) > 0:
+            return True
+        if self._entitymap.get_cell(x, y):
+            return True
+        return False
 
     def render(self):
         data = []
