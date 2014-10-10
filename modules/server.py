@@ -9,10 +9,11 @@ BUFFER_SIZE = 8192
 CONNECTION_SIZE = 5
 
 class GameHandler(asyncore.dispatcher_with_send):
-    def __init__(self, (connection, address), world):
+    def __init__(self, (connection, address), world, server):
         asyncore.dispatcher_with_send.__init__(self, connection)
         self.__address = address
         self.__last_called = float()
+        self.server = server
         self.shutdown = False
         self.username = None
         self.password = None
@@ -29,7 +30,7 @@ class GameHandler(asyncore.dispatcher_with_send):
         current_time = time.time()
         delta = current_time - self.last_time
         #NOTE: current one second, make it more granular
-        if delta > 1:
+        if delta > 60:
             self.run = True
             self.last_time = current_time
 
@@ -92,8 +93,14 @@ class GameHandler(asyncore.dispatcher_with_send):
                 elif key in ('d', 'D', '\x1b[C'):
                     self.entity.move(1, 0)
 
+                self.handler_interact()
+
             self.run = True
-            print '[%s] %s' % (self.__address[0], datastrip)
+            #print '[%s] %s' % (self.__address[0], datastrip)
+
+    def handler_interact(self):
+        for handler in self.server.connections.values():
+            handler.run = True
 
     def send_data(self, data):
         self.send(data)
@@ -119,7 +126,7 @@ class GameServer(asyncore.dispatcher):
         if pair is not None:
             sock, addr = pair
             print 'Incoming connection from %s' % repr(addr)
-            self.connections[addr] = GameHandler(pair, self.world)
+            self.connections[addr] = GameHandler(pair, self.world, self)
 
     def handle_close(self):
         self.close()

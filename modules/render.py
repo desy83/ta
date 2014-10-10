@@ -21,7 +21,7 @@ class Welcome(RenderBase):
 class Header(RenderBase):
     @staticmethod
     def write(data):
-       return "TA-Server / Time: %s, Client: %s" % (time.strftime('%X'), data[0]) + LINE
+       return "TA-Server / Time: %s, Client: %s" % (time.strftime('%H:%M'), data[0]) + LINE
     def read(self):
         pass
 
