@@ -1,7 +1,7 @@
 from config import *
 import time
 
-LINE = '\n\r______________________________________________\n\r'
+LINE = '\n\r------------------------------------------------\n\r'
 
 class RenderBase(object):
     def __init__(self):

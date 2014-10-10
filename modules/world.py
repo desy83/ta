@@ -4,7 +4,7 @@
 import random
 from config import WORLD_SEED
 
-ZONE_WIDTH = 80
+ZONE_WIDTH = 48
 ZONE_HEIGHT = 18
 
 TILES = {
@@ -59,17 +59,17 @@ class Entity(object):
         newy = self.y + dy
         zonex = self.zone_x
         zoney = self.zone_y
-        if newx < 0:
-            newx = ZONE_WIDTH - 1
+        if newx < 1:
+            newx = ZONE_WIDTH - 2
             zonex = zonex - 1
-        if newx >= ZONE_WIDTH:
-            newx = 0
+        if newx >= ZONE_WIDTH - 1:
+            newx = 1
             zonex = zonex + 1
-        if newy < 0:
-            newy = ZONE_HEIGHT - 1
+        if newy < 1:
+            newy = ZONE_HEIGHT - 2
             zoney = zoney - 1
-        if newy >= ZONE_HEIGHT:
-            newy = 0
+        if newy >= ZONE_HEIGHT - 1:
+            newy = 1
             zoney = zoney + 1
         # check collission
         if self._world.get_zone(zonex, zoney).collide(newx, newy):
