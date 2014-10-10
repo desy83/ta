@@ -1,18 +1,23 @@
 {
-	'Dwarf': {
-		'health' = 14,
-		'strength' = 7,
-		'dexterity' = 5,
-		'wisdom' = 3
-	} 'Human': {
-		'health' = 12,
-		'strength' = 6,
-		'dexterity' = 4,
-		'wisdom' = 4
-	} 'Elb': {
-		'health' = 10,
-		'strength' = 4,
-		'dexterity' = 4,
-		'wisdom' = 5
+	"Dwarf" : {
+		"health" : 14,
+		"mana" : 4,
+		"strength" : 7,
+		"dexterity" : 5,
+		"wisdom" : 3
+	},
+	 "Human": {
+		"health" : 12,
+        "mana" : 5,
+		"strength" : 6,
+		"dexterity" : 4,
+		"wisdom" : 4
+	},
+	 "Elb": {
+		"health" : 10,
+        "mana" : 6,
+		"strength" : 4,
+		"dexterity" : 4,
+		"wisdom" : 5
 	}
 }

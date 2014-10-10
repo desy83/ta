@@ -1,18 +1,23 @@
 {
 	'Warrior': {
-		'health' = 5,
-		'strength' = 3, 
-		'dexterity' = 3,
-		'wisdom' = 1
-	} 'Mage': {
-		'health' = 3,
-		'strength' = 1,
-		'dexterity' = 2,
-		'wisdom' = 2
-	} 'Ranger': {
-		'health' = 3,
-		'strength' = 1,
-		'dexterity' = 2,
-		'wisdom' = 2
+		'health' : 5,
+		'mana' : 1,
+		'strength' : 3, 
+		'dexterity' : 2,
+		'wisdom' : 1
+	},
+	'Mage': {
+		'health' : 2,
+		'mana' : 5,
+		'strength' : 1,
+		'dexterity' : 2,
+		'wisdom' : 3
+	},
+	'Ranger': {
+		'health' : 3,
+		'mana' : : 3,
+		'strength' : 1,
+		'dexterity' : 4,
+		'wisdom' : 2
 	}
 }
