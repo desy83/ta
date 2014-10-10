@@ -3,6 +3,12 @@ from lib.peewee import *
 db = SqliteDatabase('data/config.db')
 
 class BaseModel(Model):
+    #
+    # data interface [{'field1': 'val1-1', 'field2': 'val1-2'}]
+    #
+    def init(self, models):
+        for data in models:
+            self.create(**data)
     class Meta:
         database = db
 
@@ -29,6 +35,7 @@ class Races(BaseModel):
 class Char(BaseModel):
     user = ForeignKeyField(Users)
     charclass = ForeignKeyField(Classes)
+<<<<<<< HEAD
     race = ForeignKeyField(Races)
     level = IntegerField()
     # absolute values of the char (combined char, race and levelup values)
@@ -38,6 +45,8 @@ class Char(BaseModel):
     strength = IntegerField()
     dexterity = IntegerField()
     wisdom = IntegerField()
+=======
+>>>>>>> 5b014ca094e0ebc03c95b7c5a201c0ac6409ad0b
 
 class Sort(BaseModel):
     sort = CharField() #healpot
@@ -51,4 +60,3 @@ class CharItem(BaseModel):
     char = ForeignKeyField(Char)
     item = ForeignKeyField(Items)
     amount = IntegerField()
-   
