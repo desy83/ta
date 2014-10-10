@@ -83,17 +83,17 @@ class GameHandler(asyncore.dispatcher_with_send):
                             print e
             else:
                 key = datastrip
-                if key in ('w', 'W', '8'):
+                if key in ('w', 'W', '\x1b[A'):
                     self.entity.move(0, -1)
-                elif key in ('s', 'S', '2'):
+                elif key in ('s', 'S', '\x1b[B'):
                     self.entity.move(0, 1)
-                elif key in ('a', 'A', '4'):
+                elif key in ('a', 'A', '\x1b[D'):
                     self.entity.move(-1, 0)
-                elif key in ('d', 'D', '6'):
+                elif key in ('d', 'D', '\x1b[C'):
                     self.entity.move(1, 0)
 
             self.run = True
-            print '[%s] %s' % (self.__address[0], data)
+            print '[%s] %s' % (self.__address[0], datastrip)
 
     def send_data(self, data):
         self.send(data)
