@@ -35,7 +35,6 @@ class Races(BaseModel):
 class Char(BaseModel):
     user = ForeignKeyField(Users)
     charclass = ForeignKeyField(Classes)
-<<<<<<< HEAD
     race = ForeignKeyField(Races)
     level = IntegerField()
     # absolute values of the char (combined char, race and levelup values)
@@ -45,8 +44,6 @@ class Char(BaseModel):
     strength = IntegerField()
     dexterity = IntegerField()
     wisdom = IntegerField()
-=======
->>>>>>> 5b014ca094e0ebc03c95b7c5a201c0ac6409ad0b
 
 class Sort(BaseModel):
     sort = CharField() #healpot
