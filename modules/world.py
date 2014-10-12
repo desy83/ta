@@ -148,6 +148,8 @@ class Zone(object):
                 else:
                     self.remove_entity(entity)
                     return False
+            else:
+                return True
         return False
 
     def render(self):
