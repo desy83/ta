@@ -23,6 +23,9 @@ class Enemie(object):
     @property
     def health(self):
         return self._health
+    @health.setter
+    def health(self, value):
+        self._health = value
 
     @property
     def level(self):

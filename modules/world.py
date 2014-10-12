@@ -3,6 +3,7 @@
 #
 import random
 from config import WORLD_SEED, config
+from copy import copy
 
 ZONE_WIDTH = 48
 ZONE_HEIGHT = 18
@@ -41,13 +42,14 @@ class CellMap(object):
 #   Entity abstraction
 #
 class Entity(object):
-    def __init__(self, world, zone_x, zone_y, x, y, tile):
+    def __init__(self, world, zone_x, zone_y, x, y, tile, basis = None):
         self._world = world
         self.zone_x = zone_x
         self.zone_y = zone_y
         self.x = x
         self.y = y
         self.tile = tile
+        self.basis = basis
         #self.move(0, 0) # link
 
     def render_world(self):
@@ -102,8 +104,8 @@ class World(object):
             self._zones[zone_id] = zone
         return zone
 
-    def add_entity(self, zone_x, zone_y, x, y, tile = '@'):
-        return Entity(self, zone_x, zone_y, x, y, tile)
+    def add_entity(self, zone_x, zone_y, x, y, tile = '@', basis = None):
+        return Entity(self, zone_x, zone_y, x, y, tile, basis)
 
 
 #
@@ -122,19 +124,30 @@ class Zone(object):
         for y in range(ZONE_HEIGHT):
             self._tilemap.set_cell(0, y, 1)
             self._tilemap.set_cell(ZONE_WIDTH-1, y, 1)
-        for i in range(random.randint(20, 100)):
+        for i in range(random.randint(20, 80)):
             self._tilemap.set_cell(random.randint(0, ZONE_WIDTH-1), random.randint(0, ZONE_HEIGHT-1), 1)
-        for e in range(random.randint(1, 20)):
+        for e in range(random.randint(0, 10)):
             enemy = config.enemies[random.choice(config.enemies.keys())]
-            entity = self._world.add_entity(zone_x, zone_y, random.randint(1, ZONE_WIDTH-2), random.randint(1, ZONE_HEIGHT-2), enemy.sign)
+            x = random.randint(1, ZONE_WIDTH-2)
+            y = random.randint(1, ZONE_HEIGHT-2)
+            if self._tilemap.get_cell(x, y):
+                continue
+            entity = self._world.add_entity(zone_x, zone_y, x, y, enemy.sign, copy(enemy))
             self.set_entity(entity)
             self._world._enemies.append(entity)
 
     def collide(self, x, y):
         if self._tilemap.get_cell(x, y) > 0:
             return True
-        if self._entitymap.get_cell(x, y):
-            return True
+        entity = self._entitymap.get_cell(x, y)
+        if entity:
+            if entity.basis:
+                if entity.basis.health > 1:
+                    entity.basis.health = entity.basis.health-1
+                    return True
+                else:
+                    self.remove_entity(entity)
+                    return False
         return False
 
     def render(self):
