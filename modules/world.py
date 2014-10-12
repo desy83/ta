@@ -2,7 +2,7 @@
 #   world.py
 #
 import random
-from config import WORLD_SEED
+from config import WORLD_SEED, config
 
 ZONE_WIDTH = 48
 ZONE_HEIGHT = 18
@@ -48,7 +48,7 @@ class Entity(object):
         self.x = x
         self.y = y
         self.tile = tile
-        self.move(0, 0) # link
+        #self.move(0, 0) # link
 
     def render_world(self):
         return self._world.get_zone(self.zone_x, self.zone_y).render()
@@ -91,6 +91,7 @@ class Entity(object):
 class World(object):
     def __init__(self):
         self._zones = {}
+        self._enemies = []
         pass
 
     def get_zone(self, x, y):
@@ -123,6 +124,11 @@ class Zone(object):
             self._tilemap.set_cell(ZONE_WIDTH-1, y, 1)
         for i in range(random.randint(20, 100)):
             self._tilemap.set_cell(random.randint(0, ZONE_WIDTH-1), random.randint(0, ZONE_HEIGHT-1), 1)
+        for e in range(random.randint(1, 20)):
+            enemy = config.enemies[random.choice(config.enemies.keys())]
+            entity = self._world.add_entity(zone_x, zone_y, random.randint(1, ZONE_WIDTH-2), random.randint(1, ZONE_HEIGHT-2), enemy.sign)
+            self.set_entity(entity)
+            self._world._enemies.append(entity)
 
     def collide(self, x, y):
         if self._tilemap.get_cell(x, y) > 0:

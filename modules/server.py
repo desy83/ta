@@ -22,6 +22,7 @@ class GameHandler(asyncore.dispatcher_with_send):
         self.authstep = 0
         self.world = world
         self.entity = world.add_entity(0, 0, 10, 10) # player entity
+        self.world.get_zone(0, 0).set_entity(self.entity)
         self.send(Welcome.write(address))
         self.send(Auth.username())
         self.last_time = time.time()
