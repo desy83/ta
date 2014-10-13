@@ -1,5 +1,6 @@
 from modules.render import Header, Auth, Welcome
 from config import *
+from lib.static import *
 
 import asyncore
 import socket
@@ -57,32 +58,39 @@ class GameHandler(asyncore.dispatcher_with_send):
         if data:
             datastrip = data.strip()
             if not self.auth:
-                if self.authstep == 0:
-                    try:
-                        user = Users.get(Users.username == datastrip)
-                        self.username = user.username
-                        self.password = user.password
-                        self.send(Auth.password())
-                    except:
-                        self.username = datastrip
-                        self.send(Auth.newpassword())
-                    self.authstep = 1
-                elif self.authstep == 1:
-                    if self.password and self.password == datastrip:
-                        self.auth = True
-                        self.set_char_mode(True)
-                    elif self.password and self.password <> datastrip:
-                        self.authstep = 0
-                        self.password = None
-                        self.send(Auth.error('wrong password'))
-                        self.send(Auth.username())
-                    else:
+                if check_ascii(datastrip) and len(datastrip) <= 8:
+                    if self.authstep == 0:
                         try:
-                            Users.create(username=self.username, password=datastrip)
+                            user = Users.get(Users.username == datastrip)
+                            self.username = user.username
+                            self.password = user.password
+                            self.send(Auth.password())
+                        except:
+                            self.username = datastrip
+                            self.send(Auth.newpassword())
+                        self.authstep = 1
+                    elif self.authstep == 1:
+                        if self.password and self.password == datastrip:
                             self.auth = True
                             self.set_char_mode(True)
-                        except Exception, e:
-                            print e
+                        elif self.password and self.password <> datastrip:
+                            self.authstep = 0
+                            self.password = None
+                            self.send(Auth.error('wrong password'))
+                            self.send(Auth.username())
+                        else:
+                            try:
+                                Users.create(username=self.username, password=datastrip)
+                                self.auth = True
+                                self.set_char_mode(True)
+                            except Exception, e:
+                                print e
+                else:
+                    self.authstep = 0
+                    self.password = None
+                    self.send(Auth.error('incorrect input'))
+                    self.send(Auth.username())
+
             else:
                 key = datastrip
                 if key in ('w', 'W', '\x1b[A'):
