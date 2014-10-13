@@ -12,13 +12,43 @@ class ReadJson(object):
         except Exception, e:
             print e
 
-class Enemie(object):
-    def __init__(self, name,  attribues):
+class Item(object):
+    def __init__(self, name, attributes):
         self.name = name
-        self._health = attribues['health']
-        self._level = attribues['level']
-        self._sign = attribues['sign']
-        self._etype = attribues['type']
+        self._readname = attributes['name']
+        self._attributes = attributes['attributes']
+        self._rate = attributes['rate']
+        self._enemies = attributes['enemies']
+        self._condition = attributes['condition']
+        # FIXME: link to useable classes
+
+    @property
+    def readname(self):
+        return self._readname
+
+    @property
+    def attributes(self):
+        return self._attributes
+
+    @property
+    def rate(self):
+        return self._rate
+
+    @property
+    def enemies(self):
+        return self._enemies
+
+    @property
+    def condition(self):
+        return self._condition
+
+class Enemy(object):
+    def __init__(self, name,  attributes):
+        self.name = name
+        self._health = attributes['health']
+        self._level = attributes['level']
+        self._sign = attributes['sign']
+        self._etype = attributes['type']
 
     @property
     def health(self):
@@ -42,10 +72,15 @@ class Enemie(object):
 class Config(object):
     def __init__(self):
         self.enemies = {}
+        self.items = {}
         # init enemies
         enemies = ReadJson('data/enemies.json').data
         for name, attributes in enemies.items():
-            self.enemies[name] = Enemie(name, attributes)
+            self.enemies[name] = Enemy(name, attributes)
+        # init items
+        items = ReadJson('data/items.json').data
+        for name, attributes in items.items():
+            self.items[name] = Item(name, attributes)
 
         @property
         def enemies(self):
