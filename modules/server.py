@@ -21,7 +21,8 @@ class GameHandler(asyncore.dispatcher_with_send):
         self.run = False
         self.authstep = 0
         self.world = world
-        self.entity = world.add_entity(0, 0, 10, 10) # player entity
+        px, py = self.world.get_zone(0, 0).find_free_place()
+        self.entity = world.add_entity(0, 0, px, py) # player entity
         self.world.get_zone(0, 0).set_entity(self.entity)
         self.send(Welcome.write(address))
         self.send(Auth.username())

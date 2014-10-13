@@ -34,6 +34,11 @@ class CellMap(object):
         if self.inboard(x, y):
             self._cells[y * self.width + x] = data
 
+    def fill(self, data):
+        for x in range(self.width):
+            for y in range(self.height):
+                self.set_cell(x, y, data)
+
     def clear(self):
         self._cells = {}
 
@@ -61,17 +66,17 @@ class Entity(object):
         newy = self.y + dy
         zonex = self.zone_x
         zoney = self.zone_y
-        if newx < 1:
-            newx = ZONE_WIDTH - 2
+        if newx < 0:
+            newx = ZONE_WIDTH - 1
             zonex = zonex - 1
-        if newx >= ZONE_WIDTH - 1:
-            newx = 1
+        if newx >= ZONE_WIDTH:
+            newx = 0
             zonex = zonex + 1
-        if newy < 1:
-            newy = ZONE_HEIGHT - 2
+        if newy < 0:
+            newy = ZONE_HEIGHT - 1
             zoney = zoney - 1
-        if newy >= ZONE_HEIGHT - 1:
-            newy = 1
+        if newy >= ZONE_HEIGHT:
+            newy = 0
             zoney = zoney + 1
         # check collission
         if self._world.get_zone(zonex, zoney).collide(newx, newy):
@@ -113,19 +118,13 @@ class World(object):
 #
 class Zone(object):
     def __init__(self, world, zone_x, zone_y):
-        random.seed(WORLD_SEED * (zone_x + zone_y))
+        self.__set_seed(zone_x, zone_y)
         self._world = world
         self._tilemap = CellMap(ZONE_WIDTH, ZONE_HEIGHT)
         self._entitymap = CellMap(ZONE_WIDTH, ZONE_HEIGHT)
 
-        for x in range(ZONE_WIDTH):
-            self._tilemap.set_cell(x, 0, 1)
-            self._tilemap.set_cell(x, ZONE_HEIGHT-1, 1)
-        for y in range(ZONE_HEIGHT):
-            self._tilemap.set_cell(0, y, 1)
-            self._tilemap.set_cell(ZONE_WIDTH-1, y, 1)
-        for i in range(random.randint(20, 80)):
-            self._tilemap.set_cell(random.randint(0, ZONE_WIDTH-1), random.randint(0, ZONE_HEIGHT-1), 1)
+        self.generate2()
+
         for e in range(random.randint(0, 10)):
             enemy = config.enemies[random.choice(config.enemies.keys())]
             x = random.randint(1, ZONE_WIDTH-2)
@@ -135,6 +134,97 @@ class Zone(object):
             entity = self._world.add_entity(zone_x, zone_y, x, y, enemy.sign, copy(enemy))
             self.set_entity(entity)
             self._world._enemies.append(entity)
+
+    def __set_seed(self, zone_x, zone_y):
+        random.seed(WORLD_SEED * (zone_x + zone_y))
+
+    def generate2(self):
+        # drunken walk path connection stuff :)
+        w2 = int(ZONE_WIDTH / 2)
+        h2 = int(ZONE_HEIGHT / 2)
+        cx = w2 + random.randint(-5, 5)
+        cy = h2 + random.randint(-3, 3)
+        sillyness = random.randint(1, 12)
+        def connect(startx, starty, targetx, targety):
+            x = startx
+            y = starty
+            while True:
+                self._tilemap.set_cell(x, y, 255)
+                if x > 2:
+                    self._tilemap.set_cell(x-1, y, 255)
+                if x < ZONE_WIDTH - 3:
+                    self._tilemap.set_cell(x+1, y, 255)
+                if y > 2:
+                    self._tilemap.set_cell(x, y-1, 255)
+                if y < ZONE_HEIGHT - 3:
+                    self._tilemap.set_cell(x, y+1, 255)
+                r = random.randint(0, sillyness)
+                if r == 0:
+                    if x < targetx:
+                        x = x + 1
+                    if x > targetx:
+                        x = x - 1
+                elif r == 1:
+                    if y < targety:
+                        y = y + 1
+                    if y > targety:
+                        y = y - 1
+                else:
+                    if r % 2:
+                        x = x + random.choice((-1, 1))
+                    else:
+                        y = y + random.choice((-1, 1))
+                x = min(max(x, 1), ZONE_WIDTH-2)
+                y = min(max(y, 1), ZONE_HEIGHT-2)
+                if self._tilemap.get_cell(x, y) == 0:
+                    return
+                if x == targetx and y == targety:
+                    return
+
+        def mark():
+            for x in range(ZONE_WIDTH):
+                for y in range(ZONE_HEIGHT):
+                    if self._tilemap.get_cell(x, y) == 255:
+                        self._tilemap.set_cell(x, y, 0)
+
+        def drunken_walk(sx, sy, dx, dy):
+            self._tilemap.set_cell(cx, cy, 0)
+            self._tilemap.set_cell(sx, sy, 0)
+            connect(sx + dx, sy + dy, cx, cy)
+            mark()
+
+        # create 4 paths...
+        self._tilemap.fill(1)
+        drunken_walk(0, h2, 1, 0)
+        drunken_walk(ZONE_WIDTH - 1, h2, -1, 0)
+        drunken_walk(w2, 0, 0, 1)
+        drunken_walk(w2, ZONE_HEIGHT -1, 0, -1)
+
+    def generate1(self):
+        for x in range(ZONE_WIDTH):
+            self._tilemap.set_cell(x, 0, 1)
+            self._tilemap.set_cell(x, ZONE_HEIGHT-1, 1)
+        for y in range(ZONE_HEIGHT):
+            self._tilemap.set_cell(0, y, 1)
+            self._tilemap.set_cell(ZONE_WIDTH-1, y, 1)
+
+        self._tilemap.set_cell(0, int(ZONE_HEIGHT / 2), 0)
+        self._tilemap.set_cell(ZONE_WIDTH-1, int(ZONE_HEIGHT / 2), 0)
+        self._tilemap.set_cell(int(ZONE_WIDTH / 2), 0, 0)
+        self._tilemap.set_cell(int(ZONE_WIDTH / 2), ZONE_HEIGHT-1, 0)
+
+        for i in range(10):
+            cx = random.randint(0, ZONE_WIDTH-1)
+            cy = random.randint(0, ZONE_HEIGHT-1)
+            r = random.randint(2, 4)
+            rsq = r * r
+            for x in range(cx - r, cx + r + 1):
+                for y in range(cy - r, cy + r + 1):
+                    dx = cx - x
+                    dy = cy - y
+                    dist = dx * dx + dy * dy
+                    if dist <= rsq:
+                        self._tilemap.set_cell(x, y, 1)
 
     def collide(self, x, y):
         if self._tilemap.get_cell(x, y) > 0:
@@ -169,4 +259,12 @@ class Zone(object):
 
     def set_entity(self, entity):
         self._entitymap.set_cell(entity.x, entity.y, entity)
+
+    def find_free_place(self):
+        while True:
+            x = random.randint(0, ZONE_WIDTH-1)
+            y = random.randint(0, ZONE_HEIGHT-1)
+            if self._tilemap.get_cell(x, y) == 0:
+                if not self._entitymap.get_cell(x, y):
+                    return x, y
 
