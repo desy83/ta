@@ -144,7 +144,7 @@ class Zone(object):
         h2 = int(ZONE_HEIGHT / 2)
         cx = w2 + random.randint(-5, 5)
         cy = h2 + random.randint(-3, 3)
-        sillyness = random.randint(1, 12)
+        sillyness = random.randint(8, 12)
         def connect(startx, starty, targetx, targety):
             x = startx
             y = starty
@@ -189,7 +189,9 @@ class Zone(object):
 
         def drunken_walk(sx, sy, dx, dy):
             self._tilemap.set_cell(cx, cy, 0)
-            self._tilemap.set_cell(sx, sy, 0)
+            for x in range(-1,2):
+                for y in range(-1,2):
+                    self._tilemap.set_cell(sx+x, sy+y, 0)
             connect(sx + dx, sy + dy, cx, cy)
             mark()
 
