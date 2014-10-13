@@ -1,0 +1,16 @@
+{
+	"MinorSword": {
+		"name": "Minor Sword",
+		"attributes": [0, 0, 1, 0],
+		"rate": 80,
+		"enemies": [0, 1],
+		"condition": 100
+	},
+	"MajorSword": {
+		"name": "Major Sword",
+		"attributes": [0, 0, 3, 0],
+		"rate": 80,
+		"enemies": [0, 1],
+		"condition": 100
+	}
+}
