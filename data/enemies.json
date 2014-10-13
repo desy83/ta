@@ -1,0 +1,20 @@
+{
+	"Spider": {
+		"level": 1,
+		"health": 5,
+		"sign": "S",
+		"type": 0
+	}, 
+	"Zombie": {
+		"level": 1,
+		"health": 5,
+		"sign": "Z",
+		"type": 0
+	},
+	"Goblin": {
+		"level": 1,
+		"health": 5,
+		"sign": "G",
+		"type": 0
+  }
+}
