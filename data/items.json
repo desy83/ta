@@ -142,5 +142,77 @@
         "rate": 20,
         "enemies": [2, 3],
         "condition": 100
+    },
+    "LigthIronArmor": {
+        "name": "ligth Iron Armor",
+        "level": 1,
+        "attributes": [1, 0, 1, 0],
+        "rate": 75,
+        "enemies": [0, 1, 2, 3],
+        "condition": 100
+    },
+    "MediumIronArmor": {
+        "name": "Medium Iron Armor",
+        "level": 3,
+        "attributes": [2, 0, 2, 0],
+        "rate": 50,
+        "enemies": [1, 2, 3],
+        "condition": 100
+    },
+    "HeavyIronArmor": {
+        "name": "Heavy Iron Armor",
+        "level": 5,
+        "attributes": [3, 0, 3, 0],
+        "rate": 20,
+        "enemies": [2, 3],
+        "condition": 100
+    },
+    "LigthLetherArmor": {
+        "name": "Ligth Lether Armor",
+        "level": 1,
+        "attributes": [1, 0, 0, 1],
+        "rate": 75,
+        "enemies": [0, 1, 2, 3],
+        "condition": 100
+    },
+    "MediumLetherArmor": {
+        "name": "Medium Lether Armor",
+        "level": 3,
+        "attributes": [2, 0, 0, 2],
+        "rate": 50,
+        "enemies": [1, 2, 3],
+        "condition": 100
+    },
+    "HeavyLetherArmor": {
+        "name": "Heavy Lether Armor",
+        "level": 5,
+        "attributes": [3, 0, 0, 3],
+        "rate": 20,
+        "enemies": [2, 3],
+        "condition": 100
+    },
+    "LowPowerRobe": {
+        "name": "Robe of low Power",
+        "level": 1,
+        "attributes": [1, 1, 0, 0],
+        "rate": 75,
+        "enemies": [0, 1, 2, 3],
+        "condition": 100
+    },
+    "PowerRobe": {
+        "name": "Robe of Power",
+        "level": 3,
+        "attributes": [2, 2, 0, 0],
+        "rate": 50,
+        "enemies": [1, 2, 3],
+        "condition": 100
+    },
+    "StrongPowerRobe": {
+        "name": "Robe of Strong Power",
+        "level": 5,
+        "attributes": [3, 3, 0, 0],
+        "rate": 20,
+        "enemies": [2, 3],
+        "condition": 100
     }
 }
