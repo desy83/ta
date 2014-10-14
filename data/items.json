@@ -1,6 +1,7 @@
 {
 	"MinorSword": {
 		"name": "Minor Sword",
+		"level": 1,
 		"attributes": [0, 0, 1, 0],
 		"rate": 80,
 		"enemies": [0, 1],
@@ -8,6 +9,7 @@
 	},
 	"MajorSword": {
 		"name": "Major Sword",
+		"level": 2,
 		"attributes": [0, 0, 3, 0],
 		"rate": 80,
 		"enemies": [0, 1],

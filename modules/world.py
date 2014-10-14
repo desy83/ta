@@ -99,9 +99,7 @@ class Entity(object):
             else:
                 self._world.get_zone(self.zone_x, self.zone_y).remove_entity(self)
                 drop_list = [item for item in config.items.keys() if self.basis.etype in config.items[item].enemies]
-                print drop_list
                 drop_list = [config.items[item] for item in drop_list if config.items[item].rate >= random.randint(0, 100)]
-                print drop_list
                 if drop_list:
                     item = random.choice(drop_list)
                     entity = self._world.add_entity(self.zone_x, self.zone_y, self.x, self.y, '+', copy(item))
@@ -260,8 +258,6 @@ class Zone(object):
             elif type(entity.basis) is Item:
                 caller.basis.items = [entity.basis]
                 caller.basis.info = 'found %s' % entity.basis.name
-                for i in caller.basis.items:
-                    print i.name
             else:
                 return True
         return False

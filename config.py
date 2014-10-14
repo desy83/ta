@@ -52,6 +52,7 @@ class Item(object):
     def __init__(self, name, attributes):
         self.name = name
         self._readname = attributes['name']
+        self._level = attributes['level']
         self._attributes = attributes['attributes']
         self._rate = attributes['rate']
         self._enemies = attributes['enemies']
@@ -61,6 +62,10 @@ class Item(object):
     @property
     def readname(self):
         return self._readname
+
+    @property
+    def level(self):
+        return self._level
 
     @property
     def attributes(self):
