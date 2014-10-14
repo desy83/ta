@@ -257,7 +257,7 @@ class Zone(object):
                 return entity.damage(1)
             elif type(entity.basis) is Item:
                 caller.basis.items = [entity.basis]
-                caller.basis.info = 'found %s' % entity.basis.name
+                caller.basis.info = 'found %s' % entity.basis.readname
             else:
                 return True
         return False
