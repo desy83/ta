@@ -23,7 +23,7 @@
         "enemies": [1, 2, 3],
         "condition": 100
     },
-    "MinoSteelSword": {
+    "MinorSteelSword": {
         "name": "Major Sword",
         "level": 3,
         "attributes": [0, 0, 4, 0],
@@ -71,15 +71,15 @@
         "enemies": [1, 2, 3],
         "condition": 100
     },
-    "1": {
+    "IronShortBow": {
         "name": "Major Sword",
-        "level": 3,
+        "level": 4,
         "attributes": [0, 0, 4, 0],
         "rate": 30,
         "enemies": [1, 2, 3],
         "condition": 100
     },
-    "ajorSteelSword": {
+    "IronBow": {
         "name": "Major Sword",
         "level": 4,
         "attributes": [0, 0, 5, 0],
@@ -87,7 +87,7 @@
         "enemies": [1, 2, 3],
         "condition": 100
     },
-    "igSteelSword": {
+    "IronLongBow": {
         "name": "Major Sword",
         "level": 6,
         "attributes": [0, 0, 6, 0],
@@ -95,4 +95,5 @@
         "enemies": [2, 3],
         "condition": 100
     }
+
 }
