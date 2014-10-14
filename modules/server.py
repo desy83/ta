@@ -15,6 +15,7 @@ class GameHandler(asyncore.dispatcher_with_send):
         self.__address = address
         self.__last_called = float()
         self.server = server
+        self.user = None
         self.shutdown = False
         self.username = None
         self.password = None
@@ -74,6 +75,8 @@ class GameHandler(asyncore.dispatcher_with_send):
                         if self.password and self.password == datastrip:
                             self.auth = True
                             self.set_char_mode(True)
+                            self.user = User(self.username, self.entity)
+                            self.entity.basis = self.user
                         elif self.password and self.password <> datastrip:
                             self.authstep = 0
                             self.password = None
@@ -84,6 +87,8 @@ class GameHandler(asyncore.dispatcher_with_send):
                                 Users.create(username=self.username, password=datastrip)
                                 self.auth = True
                                 self.set_char_mode(True)
+                                self.user = User(self.username, self.entity)
+                                self.entity.basis = self.user
                             except Exception, e:
                                 print e
                 else:

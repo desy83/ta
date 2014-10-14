@@ -61,3 +61,11 @@ class Character(RenderBase):
     @staticmethod
     def write(handler):
         return 'C:W R:D / H:10 M:4 S:6 D:4 W:3 / L:5 / X:%s/Y:%s\n' % (handler.entity.zone_x, handler.entity.zone_y)
+
+class Info(RenderBase):
+    @staticmethod
+    def write(user):
+        b = user.info
+        user.info = ''
+        return '%s' % b
+

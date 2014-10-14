@@ -12,6 +12,42 @@ class ReadJson(object):
         except Exception, e:
             print e
 
+class User(object):
+    def __init__(self, name, entity):
+        self._username = name
+        self.entity = entity
+        self._items = []
+        self._info = ''
+
+    @property
+    def username(self):
+        return self._username
+    @username.setter
+    def username(self, value):
+        self._username = value
+
+    @property
+    def items(self):
+        return self._items
+
+    @items.setter
+    def items(self, values):
+        self._items.extend(values)
+
+    def remove_items(self, items):
+        for i in items:
+            self._items.remove(i)
+
+    @property
+    def info(self):
+        return self._info
+
+    @info.setter
+    def info(self, value):
+        self._info = value
+
+
+
 class Item(object):
     def __init__(self, name, attributes):
         self.name = name

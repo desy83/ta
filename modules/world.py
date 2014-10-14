@@ -2,7 +2,7 @@
 #   world.py
 #
 import random
-from config import WORLD_SEED, config
+from config import WORLD_SEED, config, Item, Enemy
 from copy import copy
 
 ZONE_WIDTH = 48
@@ -79,7 +79,7 @@ class Entity(object):
             newy = 0
             zoney = zoney + 1
         # check collission
-        if self._world.get_zone(zonex, zoney).collide(newx, newy):
+        if self._world.get_zone(zonex, zoney).collide(self, newx, newy):
             return
         # unlink from old pos
         self._world.get_zone(self.zone_x, self.zone_y).remove_entity(self)
@@ -98,7 +98,18 @@ class Entity(object):
                 return True
             else:
                 self._world.get_zone(self.zone_x, self.zone_y).remove_entity(self)
-                return False
+                drop_list = [item for item in config.items.keys() if self.basis.etype in config.items[item].enemies]
+                print drop_list
+                drop_list = [config.items[item] for item in drop_list if config.items[item].rate >= random.randint(0, 100)]
+                print drop_list
+                if drop_list:
+                    item = random.choice(drop_list)
+                    entity = self._world.add_entity(self.zone_x, self.zone_y, self.x, self.y, '+', copy(item))
+                    self._world.get_zone(self.zone_x, self.zone_y).set_entity(entity)
+                    self._world._items.append(item)
+                    return True
+                else:
+                    return False
         else:
             return True
 
@@ -109,6 +120,7 @@ class World(object):
     def __init__(self):
         self._zones = {}
         self._enemies = []
+        self._items = []
         pass
 
     def get_zone(self, x, y):
@@ -135,7 +147,7 @@ class Zone(object):
 
         self.generate2()
 
-        for e in range(random.randint(0, 10)):
+        for e in range(random.randint(0, 20)):
             enemy = config.enemies[random.choice(config.enemies.keys())]
             x = random.randint(1, ZONE_WIDTH-2)
             y = random.randint(1, ZONE_HEIGHT-2)
@@ -238,12 +250,20 @@ class Zone(object):
                     if dist <= rsq:
                         self._tilemap.set_cell(x, y, 1)
 
-    def collide(self, x, y):
+    def collide(self, caller, x, y):
         if self._tilemap.get_cell(x, y) > 0:
             return True
         entity = self._entitymap.get_cell(x, y)
         if entity:
-            return entity.damage(1)
+            if type(entity.basis) is Enemy:
+                return entity.damage(1)
+            elif type(entity.basis) is Item:
+                caller.basis.items = [entity.basis]
+                caller.basis.info = 'found %s' % entity.basis.name
+                for i in caller.basis.items:
+                    print i.name
+            else:
+                return True
         return False
 
     def render(self):
