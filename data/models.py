@@ -5,7 +5,7 @@ db = SqliteDatabase('data/config.db')
 class BaseModel(Model):
     #
     # data interface [{'field1': 'val1-1', 'field2': 'val1-2'}]
-    #
+    # json muss als liste mit dicts geparst werden [ {}, {}, {} ]
     def init(self, models):
         for data in models:
             self.create(**data)
