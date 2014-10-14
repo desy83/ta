@@ -16,7 +16,7 @@
 		"condition": 100
 	},
     "BigIronSword": {
-        "name": "Major Sword",
+        "name": "Big Iron Sword",
         "level": 3,
         "attributes": [0, 0, 3, 0],
         "rate": 40,
@@ -24,7 +24,7 @@
         "condition": 100
     },
     "MinorSteelSword": {
-        "name": "Major Sword",
+        "name": "Minor Steel Sword",
         "level": 3,
         "attributes": [0, 0, 4, 0],
         "rate": 30,
@@ -32,7 +32,7 @@
         "condition": 100
     },
     "MajorSteelSword": {
-        "name": "Major Sword",
+        "name": "Major Steel Sword",
         "level": 4,
         "attributes": [0, 0, 5, 0],
         "rate": 25,
@@ -40,7 +40,7 @@
         "condition": 100
     },
     "BigSteelSword": {
-        "name": "Major Sword",
+        "name": "Big Steel Sword",
         "level": 6,
         "attributes": [0, 0, 6, 0],
         "rate": 20,
@@ -48,52 +48,51 @@
         "condition": 100
     },
     "WoodenShortBow": {
-        "name": "Major Sword",
+        "name": "Wooden Short Bow",
         "level": 1,
-        "attributes": [0, 0, 1, 0],
+        "attributes": [0, 0, 0, 1],
         "rate": 75,
         "enemies": [0, 1, 2, 3],
         "condition": 100
     },
     "WoodenBow": {
-        "name": "Major Sword",
+        "name": "Wooden Bow",
         "level": 2,
-        "attributes": [0, 0, 2, 0],
+        "attributes": [0, 0, 0, 2],
         "rate": 50,
         "enemies": [0, 1],
         "condition": 100
     },
     "WoodenLongBow": {
-        "name": "Major Sword",
+        "name": "Wooden Long Bow",
         "level": 3,
-        "attributes": [0, 0, 3, 0],
+        "attributes": [0, 0, 0, 3],
         "rate": 40,
         "enemies": [1, 2, 3],
         "condition": 100
     },
     "IronShortBow": {
-        "name": "Major Sword",
+        "name": "Iron Short Bow",
         "level": 4,
-        "attributes": [0, 0, 4, 0],
+        "attributes": [0, 0, 0, 4],
         "rate": 30,
         "enemies": [1, 2, 3],
         "condition": 100
     },
     "IronBow": {
-        "name": "Major Sword",
+        "name": "Iron Bow",
         "level": 4,
-        "attributes": [0, 0, 5, 0],
+        "attributes": [0, 0, 0, 5],
         "rate": 25,
         "enemies": [1, 2, 3],
         "condition": 100
     },
     "IronLongBow": {
-        "name": "Major Sword",
+        "name": "Iron Long Bow",
         "level": 6,
-        "attributes": [0, 0, 6, 0],
+        "attributes": [0, 0, 0, 6],
         "rate": 20,
         "enemies": [2, 3],
         "condition": 100
     }
-
 }
