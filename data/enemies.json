@@ -34,13 +34,13 @@
 
 	"Skeletonarcher": {
         "level": 1,
-        "healt": 3,
+        "health": 3,
         "sign": "K",
         "type": 0
     },
 	"Skeletonwarrior": {
 		"level": 2,
-		"healt": 5,
+		"health": 5,
 		"sign": "K",
 		"type": 1
 	},
@@ -54,64 +54,64 @@
 
 	"Troll_small": {
 		"level": 3,
-		"healt": 4,
+		"health": 4,
 		"sign": "T",
 		"type": 0
 	},
 	"Troll": {
 		"level": 4,
-		"healt": 7,
+		"health": 7,
 		"sign": "T",
 		"type": 1
 	},
     "Troll_big": {
         "level": 5,
-        "healt": 9,
+        "health": 9,
         "sign": "T",
         "type": 2
     },
     "Troll_boss": {
         "level": 5,
-        "healt": 13,
+        "health": 13,
         "sign": "T",
         "type": 3
     },
 
     "Drakin": {
         "level": 5,
-        "healt": 5,
+        "health": 5,
         "sign": "D",
         "type": 1
     },
     "Dragon": {
         "level": 5,
-        "healt": 10,
+        "health": 10,
         "sign": "D",
         "type": 2
     },
     "Old_Dragon": {
         "level": 5,
-        "healt": 13,
+        "health": 13,
         "sign": "D",
         "type": 3
     },
 
     "Nagga": {
         "level": 5,
-        "healt": 3,
+        "health": 3,
         "sign": "N",
         "type": 0
     },
 
     "Lizard": {
         "level": 5,
-        "healt": 3,
+        "health": 3,
         "sign": "L",
         "type": 0
     },
     "Lizardking": {
         "level": 5,
-        "healt": 10,
+        "health": 10,
         "sign": "L",
         "type": 2
     },
