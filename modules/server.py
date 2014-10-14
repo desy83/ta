@@ -113,23 +113,19 @@ class GameHandler(asyncore.dispatcher_with_send):
                 elif key in ('d', 'D', '\x1b[C'):
                     self.entity.move(1, 0)
 
-                self.handler_interact()
+                self.server.run_all_handler()
 
             self.run = True
             #print '[%s] %s' % (self.__address[0], datastrip)
-
-    def handler_interact(self):
-        for handler in self.server.connections.values():
-            handler.run = True
 
     def send_data(self, data):
         self.send(data)
 
     def handle_close(self):
-        #FIXME: player dint disapear after close con
         self.world.remove_entity(self.entity)
-        self.close()
         self.shutdown = True
+        self.server.run_all_handler()
+        self.close()
 
 class GameServer(asyncore.dispatcher):
 
@@ -149,6 +145,10 @@ class GameServer(asyncore.dispatcher):
             sock, addr = pair
             print 'Incoming connection from %s' % repr(addr)
             self.connections[addr] = GameHandler(pair, self.world, self)
+
+    def run_all_handler(self):
+        for handler in self.connections.values():
+            handler.run = True
 
     def handle_close(self):
         self.close()

@@ -133,7 +133,7 @@ class World(object):
         return Entity(self, zone_x, zone_y, x, y, tile, basis)
 
     def remove_entity(self, entity):
-        self.get_zone(entity.x, entity.y).remove_entity(entity)
+        self.get_zone(entity.zone_x, entity.zone_y).remove_entity(entity)
 
 
 #

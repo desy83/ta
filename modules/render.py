@@ -52,7 +52,7 @@ class OnlineUsers(RenderBase):
     def write(handlers):
         users = []
         for handler in handlers:
-            if handler.username and handler.auth:
+            if handler.username and handler.auth and not handler.shutdown:
                 users.append(handler.username)
         users.sort()
         return 'Online Users: ' + ' '.join(users) + LINE
