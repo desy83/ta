@@ -16,6 +16,7 @@ class GameHandler(asyncore.dispatcher_with_send):
         self.__last_called = float()
         self.server = server
         self.user = None
+        self.userobject = None
         self.shutdown = False
         self.username = None
         self.password = None
@@ -63,9 +64,9 @@ class GameHandler(asyncore.dispatcher_with_send):
                 if check_ascii(datastrip) and len(datastrip) <= 8:
                     if self.authstep == 0:
                         try:
-                            user = Users.get(Users.username == datastrip)
-                            self.username = user.username
-                            self.password = user.password
+                            self.userobject = Users.get(Users.username == datastrip)
+                            self.username = self.userobject.username
+                            self.password = self.userobject.password
                             self.send(Auth.password())
                         except:
                             self.username = datastrip
@@ -73,9 +74,10 @@ class GameHandler(asyncore.dispatcher_with_send):
                         self.authstep = 1
                     elif self.authstep == 1:
                         if self.password and self.password == datastrip:
+                            char = Char.get(Char.user == self.userobject)
                             self.auth = True
                             self.set_char_mode(True)
-                            self.user = User(self.username, self.entity)
+                            self.user = User(self.username, self.entity, char)
                             self.entity.basis = self.user
                         elif self.password and self.password <> datastrip:
                             self.authstep = 0
@@ -84,10 +86,13 @@ class GameHandler(asyncore.dispatcher_with_send):
                             self.send(Auth.username())
                         else:
                             try:
-                                Users.create(username=self.username, password=datastrip)
+                                #FIXME: get attributs from classes and races
+                                attributes = {'level': 1, 'health': 10, 'mana': 10, 'strength': 10, 'dexterity': 10}
+                                user = Users.create(username=self.username, password=datastrip)
+                                char = Char.create(user = user, level=attributes['level'], health=attributes['health'], mana=attributes['mana'], strength=attributes['strength'], dexterity=attributes['dexterity'])
                                 self.auth = True
                                 self.set_char_mode(True)
-                                self.user = User(self.username, self.entity)
+                                self.user = User(self.username, self.entity, char)
                                 self.entity.basis = self.user
                             except Exception, e:
                                 print e
@@ -121,6 +126,8 @@ class GameHandler(asyncore.dispatcher_with_send):
         self.send(data)
 
     def handle_close(self):
+        #FIXME: player dint disapear after close con
+        self.world.remove_entity(self.entity)
         self.close()
         self.shutdown = True
 

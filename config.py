@@ -13,15 +13,22 @@ class ReadJson(object):
             print e
 
 class User(object):
-    def __init__(self, name, entity):
+    def __init__(self, name, entity, char):
         self._username = name
         self.entity = entity
         self._items = []
         self._info = ''
+        self.char = char
+        self._level = self.char.level
+        self._health = self.char.health
+        self._mana = self.char.mana
+        self._strength = self.char.strength
+        self._dexterity = self.char.dexterity
 
     @property
     def username(self):
         return self._username
+
     @username.setter
     def username(self, value):
         self._username = value
@@ -46,6 +53,48 @@ class User(object):
     def info(self, value):
         self._info = value
 
+    @property
+    def level(self):
+        return self.char.level
+        #return self._level
+
+    @level.setter
+    def level(self, value):
+        self.char.level = value
+        self.char.save()
+        #self._level = value
+
+    @property
+    def health(self):
+        return self._health
+
+    @health.setter
+    def health(self, value):
+        self._health = value
+
+    @property
+    def mana(self):
+        return self._mana
+
+    @mana.setter
+    def mana(self, value):
+        self._mana = value
+
+    @property
+    def strength(self):
+        return self._strength
+
+    @strength.setter
+    def strength(self, value):
+        self._strength = value
+
+    @property
+    def dexterity(self):
+        return self._dexterity
+
+    @dexterity.setter
+    def dexterity(self, value):
+        self._dexterity = value
 
 
 class Item(object):

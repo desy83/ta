@@ -132,6 +132,9 @@ class World(object):
     def add_entity(self, zone_x, zone_y, x, y, tile = '@', basis = None):
         return Entity(self, zone_x, zone_y, x, y, tile, basis)
 
+    def remove_entity(self, entity):
+        self.get_zone(entity.x, entity.y).remove_entity(entity)
+
 
 #
 #   Zone abstraction
@@ -254,6 +257,7 @@ class Zone(object):
         entity = self._entitymap.get_cell(x, y)
         if entity:
             if type(entity.basis) is Enemy:
+                caller.basis.char.health = caller.basis.char.health - 1
                 return entity.damage(1)
             elif type(entity.basis) is Item:
                 caller.basis.items = [entity.basis]

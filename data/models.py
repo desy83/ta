@@ -3,9 +3,7 @@ from lib.peewee import *
 db = SqliteDatabase('data/config.db')
 
 class BaseModel(Model):
-    #
     # data interface [{'field1': 'val1-1', 'field2': 'val1-2'}]
-    # json muss als liste mit dicts geparst werden [ {}, {}, {} ]
     def init(self, models):
         for data in models:
             self.create(**data)
@@ -18,7 +16,7 @@ class Users(BaseModel):
 
 class Classes(BaseModel):
     name = CharField()
-    health = IntegerField()    
+    health = IntegerField()
     mana = IntegerField()       # for skills
     strength = IntegerField()   # more dmg meele
     dexterity = IntegerField()    # more dmg range
@@ -34,16 +32,14 @@ class Races(BaseModel):
 
 class Char(BaseModel):
     user = ForeignKeyField(Users)
-    charclass = ForeignKeyField(Classes)
-    race = ForeignKeyField(Races)
+    #charclass = ForeignKeyField(Classes)
+    #race = ForeignKeyField(Races)
     level = IntegerField()
-    # absolute values of the char (combined char, race and levelup values)
-    name = CharField()
+    #name = CharField()
     health = IntegerField()
     mana = IntegerField()
     strength = IntegerField()
     dexterity = IntegerField()
-    wisdom = IntegerField()
 
 class Sort(BaseModel):
     sort = CharField() #healpot
