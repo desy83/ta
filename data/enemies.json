@@ -95,14 +95,12 @@
         "sign": "D",
         "type": 3
     },
-
     "Nagga": {
         "level": 5,
         "health": 3,
         "sign": "N",
         "type": 0
     },
-
     "Lizard": {
         "level": 5,
         "health": 3,
@@ -114,6 +112,5 @@
         "health": 10,
         "sign": "L",
         "type": 2
-    },
-
+    }
 }
