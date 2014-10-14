@@ -94,5 +94,53 @@
         "rate": 20,
         "enemies": [2, 3],
         "condition": 100
+    },
+    "SmallLowPowerStaff": {
+        "name": "Small Staff of low Power",
+        "level": 1,
+        "attributes": [0, 1, 0, 0],
+        "rate": 75,
+        "enemies": [0, 1, 2, 3],
+        "condition": 100
+    },
+    "LowPowerStaff": {
+        "name": "Staff of low Power",
+        "level": 2,
+        "attributes": [0, 2, 0, 0],
+        "rate": 50,
+        "enemies": [0, 1],
+        "condition": 100
+    },
+    "SmallPowerStaff": {
+        "name": "Small Staff of Power",
+        "level": 3,
+        "attributes": [0, 3, 0, 0],
+        "rate": 40,
+        "enemies": [1, 2, 3],
+        "condition": 100
+    },
+    "PowerStaff": {
+        "name": "Staff of Power",
+        "level": 4,
+        "attributes": [0, 4, 0, 0],
+        "rate": 30,
+        "enemies": [1, 2, 3],
+        "condition": 100
+    },
+    "SmallMightyPowerStaff": {
+        "name": "Small Staff of mighty Power",
+        "level": 4,
+        "attributes": [0, 5, 0, 0],
+        "rate": 25,
+        "enemies": [1, 2, 3],
+        "condition": 100
+    },
+    "MightyPowerStaff": {
+        "name": "Staff of mighty Power",
+        "level": 6,
+        "attributes": [0, 6, 0, 0],
+        "rate": 20,
+        "enemies": [2, 3],
+        "condition": 100
     }
 }
