@@ -91,6 +91,16 @@ class Entity(object):
         # link to new pos
         self._world.get_zone(self.zone_x, self.zone_y).set_entity(self)
 
+    def damage(self, amount):
+        if self.basis:
+            if self.basis.health > amount:
+                self.basis.health = self.basis.health - amount
+                return True
+            else:
+                self._world.get_zone(self.zone_x, self.zone_y).remove_entity(self)
+                return False
+        else:
+            return True
 
 #
 #   World abstraction
@@ -233,15 +243,7 @@ class Zone(object):
             return True
         entity = self._entitymap.get_cell(x, y)
         if entity:
-            if entity.basis:
-                if entity.basis.health > 1:
-                    entity.basis.health = entity.basis.health-1
-                    return True
-                else:
-                    self.remove_entity(entity)
-                    return False
-            else:
-                return True
+            return entity.damage(1)
         return False
 
     def render(self):
