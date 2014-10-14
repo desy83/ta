@@ -17,10 +17,9 @@ class Users(BaseModel):
 class Classes(BaseModel):
     name = CharField()
     health = IntegerField()
-    mana = IntegerField()       # for skills
-    strength = IntegerField()   # more dmg meele
-    dexterity = IntegerField()    # more dmg range
-    wisdom = IntegerField()     # more dmg mage
+    mana = IntegerField()
+    strength = IntegerField()
+    dexterity = IntegerField()
 
 class Races(BaseModel):
     name = CharField()
@@ -41,13 +40,8 @@ class Char(BaseModel):
     strength = IntegerField()
     dexterity = IntegerField()
 
-class Sort(BaseModel):
-    sort = CharField() #healpot
-    info = CharField()
-
 class Items(BaseModel):
     name = CharField()
-    sort = ForeignKeyField(Sort)
 
 class CharItem(BaseModel):
     char = ForeignKeyField(Char)

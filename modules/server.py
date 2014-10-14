@@ -112,6 +112,11 @@ class GameHandler(asyncore.dispatcher_with_send):
                     self.entity.move(-1, 0)
                 elif key in ('d', 'D', '\x1b[C'):
                     self.entity.move(1, 0)
+                elif key in ('i', 'I'):
+                    item_list = []
+                    for item in self.user.items:
+                        item_list.append(item.readname)
+                    self.user.info = ', '.join(item_list)
 
                 self.server.run_all_handler()
 

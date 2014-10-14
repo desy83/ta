@@ -12,13 +12,6 @@ class GameMain(object):
     def __init__(self):
         self.world = World()
         self.game_server = GameServer('', 6900, self.world)
-        self.enemies = {}
-        try:
-            db.connect()
-            #FIXME: create all necessary tables if not exists
-            db.create_tables([Users, Classes, Races, Char, Items, CharItem, Sort])
-        except Exception, e:
-            print e
 
     def run(self):
         #NOTE game loop

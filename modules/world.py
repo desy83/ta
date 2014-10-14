@@ -257,10 +257,10 @@ class Zone(object):
         entity = self._entitymap.get_cell(x, y)
         if entity:
             if type(entity.basis) is Enemy:
-                caller.basis.char.health = caller.basis.char.health - 1
+                caller.basis.health = caller.basis.health - 1
                 return entity.damage(1)
             elif type(entity.basis) is Item:
-                caller.basis.items = [entity.basis]
+                caller.basis.items = entity.basis
                 caller.basis.info = 'found %s' % entity.basis.readname
             else:
                 return True

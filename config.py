@@ -19,11 +19,6 @@ class User(object):
         self._items = []
         self._info = ''
         self.char = char
-        self._level = self.char.level
-        self._health = self.char.health
-        self._mana = self.char.mana
-        self._strength = self.char.strength
-        self._dexterity = self.char.dexterity
 
     @property
     def username(self):
@@ -35,11 +30,22 @@ class User(object):
 
     @property
     def items(self):
-        return self._items
+        query = CharItem.select().where(CharItem.char == self.char)
+        item_list = []
+        for char_item in query:
+            item_list.append(config.items[char_item.item.name])
+        return item_list
+        #return [config.items[char_item.item.name] for char_item in CharItem.get(CharItem.char == self.char)]
 
     @items.setter
-    def items(self, values):
-        self._items.extend(values)
+    def items(self, value):
+        item = Items.get(Items.name == value.name)
+        try:
+            char_item = CharItem.select().where((CharItem.char == self.char) & (CharItem.item == item))
+            char_item.amount += 1
+            char_item.save()
+        except:
+            CharItem.create(char=self.char, item=item, amount=1)
 
     def remove_items(self, items):
         for i in items:
@@ -56,45 +62,47 @@ class User(object):
     @property
     def level(self):
         return self.char.level
-        #return self._level
 
     @level.setter
     def level(self, value):
         self.char.level = value
         self.char.save()
-        #self._level = value
 
     @property
     def health(self):
-        return self._health
+        return self.char.health
 
     @health.setter
     def health(self, value):
-        self._health = value
+        self.char.health = value
+        self.char.save()
 
     @property
     def mana(self):
-        return self._mana
+        return self.char.mana
 
     @mana.setter
     def mana(self, value):
-        self._mana = value
+        self.char.mana = value
+        self.char.save()
 
     @property
     def strength(self):
-        return self._strength
+        return self.char.strength
 
     @strength.setter
     def strength(self, value):
-        self._strength = value
+        self.char.strength = value
+        self.char.save()
 
     @property
     def dexterity(self):
-        return self._dexterity
+        return self.char.dexterity
 
     @dexterity.setter
     def dexterity(self, value):
-        self._dexterity = value
+        self.char.dexterity = value
+        self.char.save()
 
 
 class Item(object):
@@ -163,6 +171,14 @@ class Config(object):
     def __init__(self):
         self.enemies = {}
         self.items = {}
+
+        # create db tables
+        try:
+            db.connect()
+            db.create_tables([Users, Char, Items, CharItem])
+        except Exception, e:
+            print e
+
         # init enemies
         enemies = ReadJson('data/enemies.json').data
         for name, attributes in enemies.items():
@@ -171,6 +187,10 @@ class Config(object):
         items = ReadJson('data/items.json').data
         for name, attributes in items.items():
             self.items[name] = Item(name, attributes)
+
+        if not Items.select().count():
+            for key in items.keys():
+                Items.create(name = key)
 
         @property
         def enemies(self):

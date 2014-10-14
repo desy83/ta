@@ -3,7 +3,7 @@
 		"name": "Minor Sword",
 		"level": 1,
 		"attributes": [0, 0, 1, 0],
-		"rate": 75,
+		"rate": 1,
 		"enemies": [0, 1, 2, 3],
 		"condition": 100
 	},
@@ -11,7 +11,7 @@
 		"name": "Major Sword",
 		"level": 2,
 		"attributes": [0, 0, 2, 0],
-		"rate": 50,
+		"rate": 1,
 		"enemies": [0, 1, 2, 3], 
 		"condition": 100
 	},
@@ -19,7 +19,7 @@
         "name": "Big Iron Sword",
         "level": 3,
         "attributes": [0, 0, 3, 0],
-        "rate": 40,
+        "rate": 1,
         "enemies": [1, 2, 3],
         "condition": 100
     },
@@ -27,7 +27,7 @@
         "name": "Minor Steel Sword",
         "level": 3,
         "attributes": [0, 0, 4, 0],
-        "rate": 30,
+        "rate": 1,
         "enemies": [1, 2, 3],
         "condition": 100
     },
@@ -35,7 +35,7 @@
         "name": "Major Steel Sword",
         "level": 4,
         "attributes": [0, 0, 5, 0],
-        "rate": 25,
+        "rate": 1,
         "enemies": [1, 2, 3],
         "condition": 100
     },
@@ -43,7 +43,7 @@
         "name": "Big Steel Sword",
         "level": 6,
         "attributes": [0, 0, 6, 0],
-        "rate": 20,
+        "rate": 1,
         "enemies": [2, 3],
         "condition": 100
     },
@@ -51,7 +51,7 @@
         "name": "Wooden Short Bow",
         "level": 1,
         "attributes": [0, 0, 0, 1],
-        "rate": 75,
+        "rate": 1,
         "enemies": [0, 1, 2, 3],
         "condition": 100
     },
@@ -59,7 +59,7 @@
         "name": "Wooden Bow",
         "level": 2,
         "attributes": [0, 0, 0, 2],
-        "rate": 50,
+        "rate": 1,
         "enemies": [0, 1],
         "condition": 100
     },
@@ -67,7 +67,7 @@
         "name": "Wooden Long Bow",
         "level": 3,
         "attributes": [0, 0, 0, 3],
-        "rate": 40,
+        "rate": 1,
         "enemies": [1, 2, 3],
         "condition": 100
     },
@@ -75,7 +75,7 @@
         "name": "Iron Short Bow",
         "level": 4,
         "attributes": [0, 0, 0, 4],
-        "rate": 30,
+        "rate": 1,
         "enemies": [1, 2, 3],
         "condition": 100
     },
@@ -83,7 +83,7 @@
         "name": "Iron Bow",
         "level": 4,
         "attributes": [0, 0, 0, 5],
-        "rate": 25,
+        "rate": 1,
         "enemies": [1, 2, 3],
         "condition": 100
     },
@@ -91,7 +91,7 @@
         "name": "Iron Long Bow",
         "level": 6,
         "attributes": [0, 0, 0, 6],
-        "rate": 20,
+        "rate": 1,
         "enemies": [2, 3],
         "condition": 100
     },
@@ -99,7 +99,7 @@
         "name": "Small Staff of low Power",
         "level": 1,
         "attributes": [0, 1, 0, 0],
-        "rate": 75,
+        "rate": 1,
         "enemies": [0, 1, 2, 3],
         "condition": 100
     },
@@ -107,7 +107,7 @@
         "name": "Staff of low Power",
         "level": 2,
         "attributes": [0, 2, 0, 0],
-        "rate": 50,
+        "rate": 1,
         "enemies": [0, 1],
         "condition": 100
     },
@@ -115,7 +115,7 @@
         "name": "Small Staff of Power",
         "level": 3,
         "attributes": [0, 3, 0, 0],
-        "rate": 40,
+        "rate": 1,
         "enemies": [1, 2, 3],
         "condition": 100
     },
@@ -123,7 +123,7 @@
         "name": "Staff of Power",
         "level": 4,
         "attributes": [0, 4, 0, 0],
-        "rate": 30,
+        "rate": 1,
         "enemies": [1, 2, 3],
         "condition": 100
     },
@@ -131,7 +131,7 @@
         "name": "Small Staff of mighty Power",
         "level": 4,
         "attributes": [0, 5, 0, 0],
-        "rate": 25,
+        "rate": 1,
         "enemies": [1, 2, 3],
         "condition": 100
     },
@@ -139,7 +139,7 @@
         "name": "Staff of mighty Power",
         "level": 6,
         "attributes": [0, 6, 0, 0],
-        "rate": 20,
+        "rate": 1,
         "enemies": [2, 3],
         "condition": 100
     },
@@ -147,7 +147,7 @@
         "name": "ligth Iron Armor",
         "level": 1,
         "attributes": [1, 0, 1, 0],
-        "rate": 75,
+        "rate": 1,
         "enemies": [0, 1, 2, 3],
         "condition": 100
     },
@@ -155,7 +155,7 @@
         "name": "Medium Iron Armor",
         "level": 3,
         "attributes": [2, 0, 2, 0],
-        "rate": 50,
+        "rate": 1,
         "enemies": [1, 2, 3],
         "condition": 100
     },
@@ -163,7 +163,7 @@
         "name": "Heavy Iron Armor",
         "level": 5,
         "attributes": [3, 0, 3, 0],
-        "rate": 20,
+        "rate": 1,
         "enemies": [2, 3],
         "condition": 100
     },
@@ -171,7 +171,7 @@
         "name": "Ligth Lether Armor",
         "level": 1,
         "attributes": [1, 0, 0, 1],
-        "rate": 75,
+        "rate": 1,
         "enemies": [0, 1, 2, 3],
         "condition": 100
     },
@@ -179,15 +179,15 @@
         "name": "Medium Lether Armor",
         "level": 3,
         "attributes": [2, 0, 0, 2],
-        "rate": 50,
+        "rate": 1,
         "enemies": [1, 2, 3],
         "condition": 100
     },
     "HeavyLetherArmor": {
         "name": "Heavy Lether Armor",
-        "level": 5,
+        "level": 1,
         "attributes": [3, 0, 0, 3],
-        "rate": 20,
+        "rate": 5,
         "enemies": [2, 3],
         "condition": 100
     },
@@ -195,7 +195,7 @@
         "name": "Robe of low Power",
         "level": 1,
         "attributes": [1, 1, 0, 0],
-        "rate": 75,
+        "rate": 1,
         "enemies": [0, 1, 2, 3],
         "condition": 100
     },
@@ -203,7 +203,7 @@
         "name": "Robe of Power",
         "level": 3,
         "attributes": [2, 2, 0, 0],
-        "rate": 50,
+        "rate": 1,
         "enemies": [1, 2, 3],
         "condition": 100
     },
@@ -211,7 +211,7 @@
         "name": "Robe of Strong Power",
         "level": 5,
         "attributes": [3, 3, 0, 0],
-        "rate": 20,
+        "rate": 1,
         "enemies": [2, 3],
         "condition": 100
     }

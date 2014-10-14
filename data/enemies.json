@@ -17,21 +17,18 @@
         "sign": "S",
         "type": 2
     },
-
 	"Zombie": {
 		"level": 1,
 		"health": 5,
 		"sign": "Z",
 		"type": 0
 	},
-
 	"Goblinwarrior": {
 		"level": 1,
 		"health": 5,
 		"sign": "G",
 		"type": 1
     },
-
 	"Skeletonarcher": {
         "level": 1,
         "health": 3,
@@ -50,9 +47,7 @@
         "sign": "K",
         "type": 2
     },
-
-
-	"Troll_small": {
+	"TrollSmall": {
 		"level": 3,
 		"health": 4,
 		"sign": "T",
@@ -64,19 +59,18 @@
 		"sign": "T",
 		"type": 1
 	},
-    "Troll_big": {
+    "TrollBig": {
         "level": 5,
         "health": 9,
         "sign": "T",
         "type": 2
     },
-    "Troll_boss": {
+    "TrollBoss": {
         "level": 5,
         "health": 13,
         "sign": "T",
         "type": 3
     },
-
     "Drakin": {
         "level": 5,
         "health": 5,
@@ -89,7 +83,7 @@
         "sign": "D",
         "type": 2
     },
-    "Old_Dragon": {
+    "OldDragon": {
         "level": 5,
         "health": 13,
         "sign": "D",
