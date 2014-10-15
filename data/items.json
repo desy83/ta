@@ -5,7 +5,8 @@
 		"attributes": [0, 0, 1, 0],
 		"rate": 1,
 		"enemies": [0, 1, 2, 3],
-		"condition": 100
+		"condition": 100,
+		"category" : 0
 	},
 	"MajorIronSword": {
 		"name": "Major Sword",
@@ -13,255 +14,340 @@
 		"attributes": [0, 0, 2, 0],
 		"rate": 1,
 		"enemies": [0, 1, 2, 3], 
-		"condition": 100
+		"condition": 100,
+		"category" : 0
 	},
-    "BigIronSword": {
-        "name": "Big Iron Sword",
-        "level": 3,
-        "attributes": [0, 0, 3, 0],
-        "rate": 1,
-        "enemies": [1, 2, 3],
-        "condition": 100
-    },
-    "MinorSteelSword": {
-        "name": "Minor Steel Sword",
-        "level": 3,
-        "attributes": [0, 0, 4, 0],
-        "rate": 1,
-        "enemies": [1, 2, 3],
-        "condition": 100
-    },
-    "MajorSteelSword": {
-        "name": "Major Steel Sword",
-        "level": 4,
-        "attributes": [0, 0, 5, 0],
-        "rate": 1,
-        "enemies": [1, 2, 3],
-        "condition": 100
-    },
-    "BigSteelSword": {
-        "name": "Big Steel Sword",
-        "level": 6,
-        "attributes": [0, 0, 6, 0],
-        "rate": 1,
-        "enemies": [2, 3],
-        "condition": 100
-    },
-    "WoodenShortBow": {
-        "name": "Wooden Short Bow",
-        "level": 1,
-        "attributes": [0, 0, 0, 1],
-        "rate": 1,
-        "enemies": [0, 1, 2, 3],
-        "condition": 100
-    },
-    "WoodenBow": {
-        "name": "Wooden Bow",
-        "level": 2,
-        "attributes": [0, 0, 0, 2],
-        "rate": 1,
-        "enemies": [0, 1],
-        "condition": 100
-    },
-    "WoodenLongBow": {
-        "name": "Wooden Long Bow",
-        "level": 3,
-        "attributes": [0, 0, 0, 3],
-        "rate": 1,
-        "enemies": [1, 2, 3],
-        "condition": 100
-    },
-    "IronShortBow": {
-        "name": "Iron Short Bow",
-        "level": 4,
-        "attributes": [0, 0, 0, 4],
-        "rate": 1,
-        "enemies": [1, 2, 3],
-        "condition": 100
-    },
-    "IronBow": {
-        "name": "Iron Bow",
-        "level": 4,
-        "attributes": [0, 0, 0, 5],
-        "rate": 1,
-        "enemies": [1, 2, 3],
-        "condition": 100
-    },
-    "IronLongBow": {
-        "name": "Iron Long Bow",
-        "level": 6,
-        "attributes": [0, 0, 0, 6],
-        "rate": 1,
-        "enemies": [2, 3],
-        "condition": 100
-    },
-    "SmallLowPowerStaff": {
-        "name": "Small Staff of low Power",
-        "level": 1,
-        "attributes": [0, 1, 0, 0],
-        "rate": 1,
-        "enemies": [0, 1, 2, 3],
-        "condition": 100
-    },
-    "LowPowerStaff": {
-        "name": "Staff of low Power",
-        "level": 2,
-        "attributes": [0, 2, 0, 0],
-        "rate": 1,
-        "enemies": [0, 1],
-        "condition": 100
-    },
-    "SmallPowerStaff": {
-        "name": "Small Staff of Power",
-        "level": 3,
-        "attributes": [0, 3, 0, 0],
-        "rate": 1,
-        "enemies": [1, 2, 3],
-        "condition": 100
-    },
-    "PowerStaff": {
-        "name": "Staff of Power",
-        "level": 4,
-        "attributes": [0, 4, 0, 0],
-        "rate": 1,
-        "enemies": [1, 2, 3],
-        "condition": 100
-    },
-    "SmallMightyPowerStaff": {
-        "name": "Small Staff of mighty Power",
-        "level": 4,
-        "attributes": [0, 5, 0, 0],
-        "rate": 1,
-        "enemies": [1, 2, 3],
-        "condition": 100
-    },
-    "MightyPowerStaff": {
-        "name": "Staff of mighty Power",
-        "level": 6,
-        "attributes": [0, 6, 0, 0],
-        "rate": 1,
-        "enemies": [2, 3],
-        "condition": 100
-    },
-    "LigthIronArmor": {
-        "name": "ligth Iron Armor",
-        "level": 1,
-        "attributes": [1, 0, 1, 0],
-        "rate": 1,
-        "enemies": [0, 1, 2, 3],
-        "condition": 100
-    },
-    "MediumIronArmor": {
-        "name": "Medium Iron Armor",
-        "level": 3,
-        "attributes": [2, 0, 2, 0],
-        "rate": 1,
-        "enemies": [1, 2, 3],
-        "condition": 100
-    },
-    "HeavyIronArmor": {
-        "name": "Heavy Iron Armor",
-        "level": 5,
-        "attributes": [3, 0, 3, 0],
-        "rate": 1,
-        "enemies": [2, 3],
-        "condition": 100
-    },
-    "LigthLetherArmor": {
-        "name": "Ligth Lether Armor",
-        "level": 1,
-        "attributes": [1, 0, 0, 1],
-        "rate": 1,
-        "enemies": [0, 1, 2, 3],
-        "condition": 100
-    },
-    "MediumLetherArmor": {
-        "name": "Medium Lether Armor",
-        "level": 3,
-        "attributes": [2, 0, 0, 2],
-        "rate": 1,
-        "enemies": [1, 2, 3],
-        "condition": 100
-    },
-    "HeavyLetherArmor": {
-        "name": "Heavy Lether Armor",
-        "level": 1,
-        "attributes": [3, 0, 0, 3],
-        "rate": 5,
-        "enemies": [2, 3],
-        "condition": 100
-    },
-    "LowPowerLinenRobe": {
-        "name": "Linen Robe of low Power",
-        "level": 1,
-        "attributes": [1, 1, 0, 0],
-        "rate": 1,
-        "enemies": [0, 1, 2, 3],
-        "condition": 100
-    },
-    "PowerLinenRobe": {
-        "name": "Linen Robe of Power",
-        "level": 3,
-        "attributes": [2, 2, 0, 0],
-        "rate": 1,
-        "enemies": [1, 2, 3],
-        "condition": 100
-    },
-    "StrongPowerLinenRobe": {
-        "name": "Linen Robe of Strong Power",
-        "level": 5,
-        "attributes": [3, 3, 0, 0],
-        "rate": 1,
-        "enemies": [2, 3],
-        "condition": 100
-    },
-    "AmuletOfWisdom": {
-        "name": "Amulet of Wisdom",
-        "level": 2,
-        "attributes": [0, 2, 0, 0],
-        "rate": 1,
-        "enemies": [1, 2, 3],
-        "condition": 100
-    },
-    "AmuletOfQuickness": {
-        "name": "Amulet of Quickness",
-        "level": 2,
-        "attributes": [0, 0, 0, 2],
-        "rate": 1,
-        "enemies": [1, 2, 3],
-        "condition": 100
-    },
-    "AmuletOfStrength": {
-        "name": "Amulet of Strength",
-        "level": 2,
-        "attributes": [0, 0, 2, 0],
-        "rate": 1,
-        "enemies": [1, 2, 3],
-        "condition": 100
-    },
-    "CursedAmuletOfWisdom": {
-        "name": "Cursed Amulet Of Wisdom",
-        "level": 3,
-        "attributes": [-4, 6, 0, 0],
-        "rate": 1,
-        "enemies": [2, 3],
-        "condition": 100
-    },
-    "CursedAmuletOfQuickness": {
-        "name": "Cursed Amulet Of Wisdom",
-        "level": 3,
-        "attributes": [-3, 0, 0, 5],
-        "rate": 1,
-        "enemies": [2, 3],
-        "condition": 100
-    },
-    "CursedAmuletOfStrength": {
-        "name": "Cursed Amulet Of Strength",
-        "level": 3,
-        "attributes": [-2, 0, 4, 0],
-        "rate": 1,
-        "enemies": [2, 3],
-        "condition": 100
-    }
-		
+	"BigIronSword": {
+		"name": "Big Iron Sword",
+		"level": 3,
+		"attributes": [0, 0, 3, 0],
+		"rate": 1,
+		"enemies": [1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"MinorSteelSword": {
+		"name": "Minor Steel Sword",
+		"level": 3,
+		"attributes": [0, 0, 4, 0],
+		"rate": 1,
+		"enemies": [1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"MajorSteelSword": {
+		"name": "Major Steel Sword",
+		"level": 4,
+		"attributes": [0, 0, 5, 0],
+		"rate": 1,
+		"enemies": [1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"BigSteelSword": {
+		"name": "Big Steel Sword",
+		"level": 6,
+		"attributes": [0, 0, 6, 0],
+		"rate": 1,
+		"enemies": [2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"WoodenShortBow": {
+		"name": "Wooden Short Bow",
+		"level": 1,
+		"attributes": [0, 0, 0, 1],
+		"rate": 1,
+		"enemies": [0, 1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"WoodenBow": {
+		"name": "Wooden Bow",
+		"level": 2,
+		"attributes": [0, 0, 0, 2],
+		"rate": 1,
+		"enemies": [0, 1],
+		"condition": 100,
+		"category" : 0
+	},
+	"WoodenLongBow": {
+		"name": "Wooden Long Bow",
+		"level": 3,
+		"attributes": [0, 0, 0, 3],
+		"rate": 1,
+		"enemies": [1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"IronShortBow": {
+		"name": "Iron Short Bow",
+		"level": 4,
+		"attributes": [0, 0, 0, 4],
+		"rate": 1,
+		"enemies": [1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"IronBow": {
+		"name": "Iron Bow",
+		"level": 4,
+		"attributes": [0, 0, 0, 5],
+		"rate": 1,
+		"enemies": [1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"IronLongBow": {
+		"name": "Iron Long Bow",
+		"level": 6,
+		"attributes": [0, 0, 0, 6],
+		"rate": 1,
+		"enemies": [2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"SmallLowPowerStaff": {
+		"name": "Small Staff of low Power",
+		"level": 1,
+		"attributes": [0, 1, 0, 0],
+		"rate": 1,
+		"enemies": [0, 1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"LowPowerStaff": {
+		"name": "Staff of low Power",
+		"level": 2,
+		"attributes": [0, 2, 0, 0],
+		"rate": 1,
+		"enemies": [0, 1],
+		"condition": 100,
+		"category" : 0
+	},
+	"SmallPowerStaff": {
+		"name": "Small Staff of Power",
+		"level": 3,
+		"attributes": [0, 3, 0, 0],
+		"rate": 1,
+		"enemies": [1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"PowerStaff": {
+		"name": "Staff of Power",
+		"level": 4,
+		"attributes": [0, 4, 0, 0],
+		"rate": 1,
+		"enemies": [1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"SmallMightyPowerStaff": {
+		"name": "Small Staff of mighty Power",
+		"level": 4,
+		"attributes": [0, 5, 0, 0],
+		"rate": 1,
+		"enemies": [1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"MightyPowerStaff": {
+		"name": "Staff of mighty Power",
+		"level": 6,
+		"attributes": [0, 6, 0, 0],
+		"rate": 1,
+		"enemies": [2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"LigthIronArmor": {
+		"name": "ligth Iron Armor",
+		"level": 1,
+		"attributes": [1, 0, 1, 0],
+		"rate": 1,
+		"enemies": [0, 1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"MediumIronArmor": {
+		"name": "Medium Iron Armor",
+		"level": 3,
+		"attributes": [2, 0, 2, 0],
+		"rate": 1,
+		"enemies": [1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"HeavyIronArmor": {
+		"name": "Heavy Iron Armor",
+		"level": 5,
+		"attributes": [3, 0, 3, 0],
+		"rate": 1,
+		"enemies": [2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"LigthLetherArmor": {
+		"name": "Ligth Lether Armor",
+		"level": 1,
+		"attributes": [1, 0, 0, 1],
+		"rate": 1,
+		"enemies": [0, 1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"MediumLetherArmor": {
+		"name": "Medium Lether Armor",
+		"level": 3,
+		"attributes": [2, 0, 0, 2],
+		"rate": 1,
+		"enemies": [1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"HeavyLetherArmor": {
+		"name": "Heavy Lether Armor",
+		"level": 1,
+		"attributes": [3, 0, 0, 3],
+		"rate": 5,
+		"enemies": [2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"LowPowerLinenRobe": {
+		"name": "Linen Robe of low Power",
+		"level": 1,
+		"attributes": [1, 1, 0, 0],
+		"rate": 1,
+		"enemies": [0, 1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"PowerLinenRobe": {
+		"name": "Linen Robe of Power",
+		"level": 3,
+		"attributes": [2, 2, 0, 0],
+		"rate": 1,
+		"enemies": [1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"StrongPowerLinenRobe": {
+		"name": "Linen Robe of Strong Power",
+		"level": 5,
+		"attributes": [3, 3, 0, 0],
+		"rate": 1,
+		"enemies": [2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"AmuletOfWisdom": {
+		"name": "Amulet of Wisdom",
+		"level": 2,
+		"attributes": [0, 2, 0, 0],
+		"rate": 1,
+		"enemies": [1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"AmuletOfQuickness": {
+		"name": "Amulet of Quickness",
+		"level": 2,
+		"attributes": [0, 0, 0, 2],
+		"rate": 1,
+		"enemies": [1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"AmuletOfStrength": {
+		"name": "Amulet of Strength",
+		"level": 2,
+		"attributes": [0, 0, 2, 0],
+		"rate": 1,
+		"enemies": [1, 2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"CursedAmuletOfWisdom": {
+		"name": "Cursed Amulet Of Wisdom",
+		"level": 3,
+		"attributes": [-4, 6, 0, 0],
+		"rate": 1,
+		"enemies": [2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"CursedAmuletOfQuickness": {
+		"name": "Cursed Amulet Of Wisdom",
+		"level": 3,
+		"attributes": [-3, 0, 0, 5],
+		"rate": 1,
+		"enemies": [2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"CursedAmuletOfStrength": {
+		"name": "Cursed Amulet Of Strength",
+		"level": 3,
+		"attributes": [-2, 0, 4, 0],
+		"rate": 1,
+		"enemies": [2, 3],
+		"condition": 100,
+		"category" : 0
+	},
+	"SmallHealthPot": {
+		"name": "Small Potion of Healing",
+		"level": 1,
+		"attributes": [3, 0, 0, 0],
+		"rate": 10,
+		"enemies": [0, 1, 2, 3],
+		"condition": 100,
+		"category": 1
+	},
+	"MiddleHealthPot": {
+		"name": "Middle Potion of Healing",
+		"level": 3,
+		"attributes": [6, 0, 0, 0],
+		"rate": 10,
+		"enemies": [1, 2, 3],
+		"condition": 100,
+		"category": 1
+	},
+	"BigHealthPot": {
+		"name": "Big Potion of Healing",
+		"level": 5,
+		"attributes": [9, 0, 0, 0],
+		"rate": 10,
+		"enemies": [2, 3],
+		"condition": 100,
+		"category": 1
+	},
+	"SmallManaPot": {
+		"name": "Small Potion of Mana",
+		"level": 1,
+		"attributes": [0, 0, 0, 0],
+		"rate": 10,
+		"enemies": [0, 1, 2, 3],
+		"condition": 100,
+		"category": 1
+	},
+	"MiddleManaPot": {
+		"name": "Middle Potion of Mana",
+		"level": 3,
+		"attributes": [0, 0, 0, 0],
+		"rate": 10,
+		"enemies": [1, 2, 3],
+		"condition": 100,
+		"category": 1
+	},
+	"BigManaPot": {
+		"name": "Big Potion of Mana",
+		"level": 5,
+		"attributes": [0, 0, 0, 0],
+		"rate": 10,
+		"enemies": [2, 3],
+		"condition": 100,
+		"category": 1
+	}
 }
