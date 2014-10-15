@@ -191,28 +191,77 @@
         "enemies": [2, 3],
         "condition": 100
     },
-    "LowPowerRobe": {
-        "name": "Robe of low Power",
+    "LowPowerLinenRobe": {
+        "name": "Linen Robe of low Power",
         "level": 1,
         "attributes": [1, 1, 0, 0],
         "rate": 1,
         "enemies": [0, 1, 2, 3],
         "condition": 100
     },
-    "PowerRobe": {
-        "name": "Robe of Power",
+    "PowerLinenRobe": {
+        "name": "Linen Robe of Power",
         "level": 3,
         "attributes": [2, 2, 0, 0],
         "rate": 1,
         "enemies": [1, 2, 3],
         "condition": 100
     },
-    "StrongPowerRobe": {
-        "name": "Robe of Strong Power",
+    "StrongPowerLinenRobe": {
+        "name": "Linen Robe of Strong Power",
         "level": 5,
         "attributes": [3, 3, 0, 0],
         "rate": 1,
         "enemies": [2, 3],
         "condition": 100
+    },
+    "AmuletOfWisdom": {
+        "name": "Amulet of Wisdom",
+        "level": 2,
+        "attributes": [0, 2, 0, 0],
+        "rate": 1,
+        "enemies": [1, 2, 3],
+        "condition": 100
+    },
+    "AmuletOfQuickness": {
+        "name": "Amulet of Quickness",
+        "level": 2,
+        "attributes": [0, 0, 0, 2],
+        "rate": 1,
+        "enemies": [1, 2, 3],
+        "condition": 100
+    },
+    "AmuletOfStrength": {
+        "name": "Amulet of Strength",
+        "level": 2,
+        "attributes": [0, 0, 2, 0],
+        "rate": 1,
+        "enemies": [1, 2, 3],
+        "condition": 100
+    },
+    "CursedAmuletOfWisdom": {
+        "name": "Cursed Amulet Of Wisdom",
+        "level": 3,
+        "attributes": [-4, 6, 0, 0],
+        "rate": 1,
+        "enemies": [2, 3],
+        "condition": 100
+    },
+    "CursedAmuletOfQuickness": {
+        "name": "Cursed Amulet Of Wisdom",
+        "level": 3,
+        "attributes": [-3, 0, 0, 5],
+        "rate": 1,
+        "enemies": [2, 3],
+        "condition": 100
+    },
+    "CursedAmuletOfStrength": {
+        "name": "Cursed Amulet Of Strength",
+        "level": 3,
+        "attributes": [-2, 0, 4, 0],
+        "rate": 1,
+        "enemies": [2, 3],
+        "condition": 100
     }
+		
 }
