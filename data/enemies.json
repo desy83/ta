@@ -5,18 +5,18 @@
 		"sign": "S",
 		"type": 0
 	},
-    "Cavespider": {
-        "level": 1,
-        "health": 6,
-        "sign": "S",
-        "type": 1
-    },
-    "Poisonspider": {
-        "level": 1,
-        "health": 10,
-        "sign": "S",
-        "type": 2
-    },
+	"Cavespider": {
+		"level": 1,
+		"health": 6,
+		"sign": "S",
+		"type": 1
+	},
+	"Poisonspider": {
+		"level": 1,
+		"health": 10,
+		"sign": "S",
+		"type": 2
+	},
 	"Zombie": {
 		"level": 1,
 		"health": 5,
@@ -28,25 +28,25 @@
 		"health": 5,
 		"sign": "G",
 		"type": 1
-    },
+	},
 	"Skeletonarcher": {
-        "level": 1,
-        "health": 3,
-        "sign": "K",
-        "type": 0
-    },
+		"level": 1,
+		"health": 3,
+		"sign": "K",
+		"type": 0
+	},
 	"Skeletonwarrior": {
 		"level": 2,
 		"health": 5,
 		"sign": "K",
 		"type": 1
 	},
-    "Skeletonking": {
-        "level": 1,
-        "health": 10,
-        "sign": "K",
-        "type": 2
-    },
+	"Skeletonking": {
+		"level": 1,
+		"health": 10,
+		"sign": "K",
+		"type": 2
+	},
 	"TrollSmall": {
 		"level": 3,
 		"health": 4,
@@ -59,52 +59,52 @@
 		"sign": "T",
 		"type": 1
 	},
-    "TrollBig": {
-        "level": 5,
-        "health": 9,
-        "sign": "T",
-        "type": 2
-    },
-    "TrollBoss": {
-        "level": 5,
-        "health": 13,
-        "sign": "T",
-        "type": 3
-    },
-    "Drakin": {
-        "level": 5,
-        "health": 5,
-        "sign": "D",
-        "type": 1
-    },
-    "Dragon": {
-        "level": 5,
-        "health": 10,
-        "sign": "D",
-        "type": 2
-    },
-    "OldDragon": {
-        "level": 5,
-        "health": 13,
-        "sign": "D",
-        "type": 3
-    },
-    "Nagga": {
-        "level": 5,
-        "health": 3,
-        "sign": "N",
-        "type": 0
-    },
-    "Lizard": {
-        "level": 5,
-        "health": 3,
-        "sign": "L",
-        "type": 0
-    },
-    "Lizardking": {
-        "level": 5,
-        "health": 10,
-        "sign": "L",
-        "type": 2
-    }
+	"TrollBig": {
+		"level": 5,
+		"health": 9,
+		"sign": "T",
+		"type": 2
+	},
+	"TrollBoss": {
+		"level": 5,
+		"health": 13,
+		"sign": "T",
+		"type": 3
+	},
+	"Drakin": {
+		"level": 5,
+		"health": 5,
+		"sign": "D",
+		"type": 1
+	},
+	"Dragon": {
+		"level": 5,
+		"health": 10,
+		"sign": "D",
+		"type": 2
+	},
+	"OldDragon": {
+		"level": 5,
+		"health": 13,
+		"sign": "D",
+		"type": 3
+	},
+	"Nagga": {
+		"level": 5,
+		"health": 3,
+		"sign": "N",
+		"type": 0
+	},
+	"Lizard": {
+		"level": 5,
+		"health": 3,
+		"sign": "L",
+		"type": 0
+	},
+	"Lizardking": {
+		"level": 5,
+		"health": 10,
+		"sign": "L",
+		"type": 2
+	}
 }
