@@ -4,6 +4,9 @@ import json
 # random world seed ...
 WORLD_SEED = 1024
 
+# init attributes
+ATTRIBUTES = {'level': 1, 'experience': 1, 'health': 10, 'mana': 10, 'strength': 10, 'dexterity': 10, 'zonex': 0, 'zoney': 0}
+
 class ReadJson(object):
     def __init__(self, path):
         try:
@@ -19,6 +22,8 @@ class User(object):
         self._items = []
         self._info = ''
         self.char = char
+        self.maxhealth = ATTRIBUTES['health'] + char.level * 2
+        self.maxmana = ATTRIBUTES['mana'] + char.level
 
     @property
     def username(self):
@@ -69,6 +74,15 @@ class User(object):
         self.char.save()
 
     @property
+    def experience(self):
+        return self.char.experience
+
+    @experience.setter
+    def experience(self, value):
+        self.char.experience = value
+        self.char.save()
+
+    @property
     def health(self):
         return self.char.health
 
@@ -102,6 +116,24 @@ class User(object):
     @dexterity.setter
     def dexterity(self, value):
         self.char.dexterity = value
+        self.char.save()
+
+    @property
+    def zonex(self):
+        return self.char.zonex
+
+    @zonex.setter
+    def zonex(self, value):
+        self.char.zonex = value
+        self.char.save()
+
+    @property
+    def zoney(self):
+        return self.char.zoney
+
+    @zoney.setter
+    def zoney(self, value):
+        self.char.zoney = value
         self.char.save()
 
 

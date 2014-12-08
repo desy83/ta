@@ -2,7 +2,7 @@
 #   world.py
 #
 import random
-from config import WORLD_SEED, config, Item, Enemy
+from config import WORLD_SEED, config, Item, Enemy, User
 from copy import copy
 
 ZONE_WIDTH = 48
@@ -61,6 +61,31 @@ class Entity(object):
         return self._world.get_zone(self.zone_x, self.zone_y).render()
 
     def move(self, dx, dy):
+        zone = self._world.get_zone(self.zone_x, self.zone_y)
+        range_x = 10
+        range_y = 8
+        moved_entities = []
+
+        # move enemies
+        if type(self.basis) is User:
+            for ex in xrange(self.x-range_x if self.x-range_x >= 0 else 0, self.x+range_x if self.x+range_x <= ZONE_WIDTH else ZONE_WIDTH):
+                for ey in xrange(self.y-range_y if self.y >=0 else 0, self.y+range_y if self.y+range_y <= ZONE_HEIGHT else ZONE_HEIGHT):
+                    entity = zone._entitymap.get_cell(ex, ey)
+                    if entity:
+                        if type(entity.basis) is Enemy and entity not in moved_entities:
+                            distance_x = self.x-entity.x
+                            distance_y = self.y-entity.y
+
+                            if distance_x > 0:
+                                entity.move(1, 0)
+                            elif distance_x < 0:
+                                entity.move(-1, 0)
+                            if distance_y > 0:
+                                entity.move(0, 1)
+                            elif distance_y < 0:
+                                entity.move(0, -1)
+                            moved_entities.append(entity)
+
         # calc new pos
         newx = self.x + dx
         newy = self.y + dy
@@ -80,6 +105,18 @@ class Entity(object):
             zoney = zoney + 1
         # check collission
         if self._world.get_zone(zonex, zoney).collide(self, newx, newy):
+            # implement enemy intelligence
+            '''
+            if type(self.basis) is Enemy:
+                if self.x-newx < 0:
+                    self.move(-1, 0)
+                elif self.x-newx > 0:
+                    self.move(1, 0)
+                elif self.y-newy < 0:
+                    self.move(0, -1)
+                elif self.y-newy > 0:
+                    self.move(0, 1)
+            '''
             return
         # unlink from old pos
         self._world.get_zone(self.zone_x, self.zone_y).remove_entity(self)
@@ -88,6 +125,10 @@ class Entity(object):
         self.y = newy
         self.zone_x = zonex
         self.zone_y = zoney
+        if type(self.basis) is User:
+            if self.basis.zonex != self.zone_x or self.basis.zoney != zoney:
+                self.basis.zonex = zonex
+                self.basis.zoney = zoney
         # link to new pos
         self._world.get_zone(self.zone_x, self.zone_y).set_entity(self)
 
@@ -95,7 +136,7 @@ class Entity(object):
         if self.basis:
             if self.basis.health > amount:
                 self.basis.health = self.basis.health - amount
-                return True
+                return (True, True)
             else:
                 self._world.get_zone(self.zone_x, self.zone_y).remove_entity(self)
                 drop_list = [item for item in config.items.keys() if self.basis.etype in config.items[item].enemies]
@@ -105,11 +146,11 @@ class Entity(object):
                     entity = self._world.add_entity(self.zone_x, self.zone_y, self.x, self.y, '+', copy(item))
                     self._world.get_zone(self.zone_x, self.zone_y).set_entity(entity)
                     self._world._items.append(item)
-                    return True
+                    return (True, False)
                 else:
-                    return False
+                    return (False, False)
         else:
-            return True
+            return (True, True)
 
 #
 #   World abstraction
@@ -148,7 +189,7 @@ class Zone(object):
 
         self.generate2()
 
-        for e in range(random.randint(0, 20)):
+        for e in range(random.randint(0, 4)):
             enemy = config.enemies[random.choice(config.enemies.keys())]
             x = random.randint(1, ZONE_WIDTH-2)
             y = random.randint(1, ZONE_HEIGHT-2)
@@ -256,9 +297,23 @@ class Zone(object):
             return True
         entity = self._entitymap.get_cell(x, y)
         if entity:
-            if type(entity.basis) is Enemy:
-                caller.basis.health = caller.basis.health - 1
-                return entity.damage(1)
+            if type(entity.basis) is User:
+                if random.randint(0, 100) < 10:
+                    entity.basis.health = entity.basis.health - 1
+                return True
+            elif type(entity.basis) is Enemy and type(caller.basis) is User:
+                block, exp = entity.damage(1)
+                if not exp:
+                    if entity.basis.etype == 0:
+                        caller.basis.experience += 10
+                    elif entity.basis.etype == 1:
+                        caller.basis.experience += 30
+                    elif entity.basis.etype == 2:
+                        caller.basis.experience += 50
+                    elif entity.basis.etype == 3:
+                        caller.basis.experience += 100
+                    caller.basis.level = (caller.basis.experience/1000)+1
+                return block
             elif type(entity.basis) is Item:
                 caller.basis.items = entity.basis
                 caller.basis.info = 'found %s' % entity.basis.readname

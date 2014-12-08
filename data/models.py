@@ -34,11 +34,14 @@ class Char(BaseModel):
     #charclass = ForeignKeyField(Classes)
     #race = ForeignKeyField(Races)
     level = IntegerField()
+    experience = IntegerField()
     #name = CharField()
     health = IntegerField()
     mana = IntegerField()
     strength = IntegerField()
     dexterity = IntegerField()
+    zonex = IntegerField()
+    zoney = IntegerField()
 
 class Items(BaseModel):
     name = CharField()

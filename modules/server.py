@@ -24,9 +24,7 @@ class GameHandler(asyncore.dispatcher_with_send):
         self.run = False
         self.authstep = 0
         self.world = world
-        px, py = self.world.get_zone(0, 0).find_free_place()
-        self.entity = world.add_entity(0, 0, px, py) # player entity
-        self.world.get_zone(0, 0).set_entity(self.entity)
+        self.entity = None
         self.send(Welcome.write(address))
         self.send(Auth.username())
         self.last_time = time.time()
@@ -77,6 +75,9 @@ class GameHandler(asyncore.dispatcher_with_send):
                             char = Char.get(Char.user == self.userobject)
                             self.auth = True
                             self.set_char_mode(True)
+                            px, py = self.world.get_zone(char.zonex, char.zoney).find_free_place()
+                            self.entity = self.world.add_entity(char.zonex, char.zoney, px, py) # player entity
+                            self.world.get_zone(char.zonex, char.zoney).set_entity(self.entity)
                             self.user = User(self.username, self.entity, char)
                             self.entity.basis = self.user
                         elif self.password and self.password <> datastrip:
@@ -87,11 +88,13 @@ class GameHandler(asyncore.dispatcher_with_send):
                         else:
                             try:
                                 #FIXME: get attributs from classes and races
-                                attributes = {'level': 1, 'health': 10, 'mana': 10, 'strength': 10, 'dexterity': 10}
                                 user = Users.create(username=self.username, password=datastrip)
-                                char = Char.create(user = user, level=attributes['level'], health=attributes['health'], mana=attributes['mana'], strength=attributes['strength'], dexterity=attributes['dexterity'])
+                                char = Char.create(user = user, level=ATTRIBUTES['level'], experience=ATTRIBUTES['experience'], health=ATTRIBUTES['health'], mana=ATTRIBUTES['mana'], strength=ATTRIBUTES['strength'], dexterity=ATTRIBUTES['dexterity'], zonex=ATTRIBUTES['zonex'], zoney=ATTRIBUTES['zoney'])
                                 self.auth = True
                                 self.set_char_mode(True)
+                                px, py = self.world.get_zone(char.zonex, char.zoney).find_free_place()
+                                self.entity = self.world.add_entity(char.zonex, char.zoney, px, py) # player entity
+                                self.world.get_zone(char.zonex, char.zoney).set_entity(self.entity)
                                 self.user = User(self.username, self.entity, char)
                                 self.entity.basis = self.user
                             except Exception, e:
