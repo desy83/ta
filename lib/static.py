@@ -1,8 +1,26 @@
+ESC = chr(27)
+
+class States:
+    AUTH = 0
+    WORLD = 1
+    INVENTORY = 2
+
 class VT100Codes:
-    ESC = chr(27)
     JMPHOME = ESC+"[H"
     CLEARSCRN = ESC+"[2J"
     CLEARDOWN = ESC+"[J"
+
+class Colors:
+    REDBOLD = ESC+"[1;31m"
+    RED = ESC+"[0;31m"
+    YELLOWBOLD = ESC+"[1;33m"
+    YELLOW = ESC+"[0;33m"
+    GREENBOLD = ESC+"[1;32m"
+    GREEN = ESC+"[0;32m"
+    RESET = ESC+"[0m"
+
+def set_color(tile, color):
+    return color+tile+Colors.RESET
 
 def check_ascii(characters):
     check = True

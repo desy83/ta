@@ -4,12 +4,13 @@
 import random
 from config import WORLD_SEED, config, Item, Enemy, User
 from copy import copy
+from lib.static import Colors
 
 ZONE_WIDTH = 48
 ZONE_HEIGHT = 18
 
 TILES = {
-    0: ' ', 1: '#'
+    0: ' ', 1: Colors.GREEN+'#'+Colors.RESET
 }
 
 #
@@ -195,7 +196,7 @@ class Zone(object):
             y = random.randint(1, ZONE_HEIGHT-2)
             if self._tilemap.get_cell(x, y):
                 continue
-            entity = self._world.add_entity(zone_x, zone_y, x, y, enemy.sign, copy(enemy))
+            entity = self._world.add_entity(zone_x, zone_y, x, y, enemy.colored_sign, copy(enemy))
             self.set_entity(entity)
             self._world._enemies.append(entity)
 

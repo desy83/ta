@@ -20,7 +20,7 @@ class GameHandler(asyncore.dispatcher_with_send):
         self.shutdown = False
         self.username = None
         self.password = None
-        self.auth = False
+        self.state = States.AUTH
         self.run = False
         self.authstep = 0
         self.world = world
@@ -58,7 +58,7 @@ class GameHandler(asyncore.dispatcher_with_send):
         data = self.recv(BUFFER_SIZE)
         if data:
             datastrip = data.strip()
-            if not self.auth:
+            if self.state == States.AUTH:
                 if check_ascii(datastrip) and len(datastrip) <= 8:
                     if self.authstep == 0:
                         try:
@@ -73,10 +73,10 @@ class GameHandler(asyncore.dispatcher_with_send):
                     elif self.authstep == 1:
                         if self.password and self.password == datastrip:
                             char = Char.get(Char.user == self.userobject)
-                            self.auth = True
+                            self.state = States.WORLD
                             self.set_char_mode(True)
                             px, py = self.world.get_zone(char.zonex, char.zoney).find_free_place()
-                            self.entity = self.world.add_entity(char.zonex, char.zoney, px, py) # player entity
+                            self.entity = self.world.add_entity(char.zonex, char.zoney, px, py, set_color("@", Colors.YELLOWBOLD)) # player entity
                             self.world.get_zone(char.zonex, char.zoney).set_entity(self.entity)
                             self.user = User(self.username, self.entity, char)
                             self.entity.basis = self.user
@@ -90,10 +90,10 @@ class GameHandler(asyncore.dispatcher_with_send):
                                 #FIXME: get attributs from classes and races
                                 user = Users.create(username=self.username, password=datastrip)
                                 char = Char.create(user = user, level=ATTRIBUTES['level'], experience=ATTRIBUTES['experience'], health=ATTRIBUTES['health'], mana=ATTRIBUTES['mana'], strength=ATTRIBUTES['strength'], dexterity=ATTRIBUTES['dexterity'], zonex=ATTRIBUTES['zonex'], zoney=ATTRIBUTES['zoney'])
-                                self.auth = True
+                                self.state = States.WORLD
                                 self.set_char_mode(True)
                                 px, py = self.world.get_zone(char.zonex, char.zoney).find_free_place()
-                                self.entity = self.world.add_entity(char.zonex, char.zoney, px, py) # player entity
+                                self.entity = self.world.add_entity(char.zonex, char.zoney, px, py, set_color("@", Colors.YELLOWBOLD)) # player entity
                                 self.world.get_zone(char.zonex, char.zoney).set_entity(self.entity)
                                 self.user = User(self.username, self.entity, char)
                                 self.entity.basis = self.user
@@ -107,19 +107,26 @@ class GameHandler(asyncore.dispatcher_with_send):
 
             else:
                 key = datastrip
-                if key in ('w', 'W', '\x1b[A'):
-                    self.entity.move(0, -1)
-                elif key in ('s', 'S', '\x1b[B'):
-                    self.entity.move(0, 1)
-                elif key in ('a', 'A', '\x1b[D'):
-                    self.entity.move(-1, 0)
-                elif key in ('d', 'D', '\x1b[C'):
-                    self.entity.move(1, 0)
-                elif key in ('i', 'I'):
-                    item_list = []
-                    for item in self.user.items:
-                        item_list.append(item.readname)
-                    self.user.info = ', '.join(item_list)
+                # World Keyset
+                if self.state == States.WORLD:
+                    if key in ('w', 'W', '\x1b[A'):
+                        self.entity.move(0, -1)
+                    elif key in ('s', 'S', '\x1b[B'):
+                        self.entity.move(0, 1)
+                    elif key in ('a', 'A', '\x1b[D'):
+                        self.entity.move(-1, 0)
+                    elif key in ('d', 'D', '\x1b[C'):
+                        self.entity.move(1, 0)
+                    elif key in ('i', 'I'):
+                        self.state = States.INVENTORY
+                        #item_list = []
+                        #for item in self.user.items:
+                        #    item_list.append(item.readname)
+                        #self.user.info = ', '.join(item_list)
+                # Inventory Keyset
+                elif self.state == States.INVENTORY:
+                    if key in ('i', 'I'):
+                        self.state = States.WORLD
 
                 self.server.run_all_handler()
 

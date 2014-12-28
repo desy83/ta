@@ -1,5 +1,5 @@
 from modules.server import GameServer
-from modules.render import Header, Auth, OnlineUsers, Character, Info
+from modules.render import Header, Auth, OnlineUsers, Character, Info, Inventory
 from lib.static import *
 from modules.server import GameServer
 from modules.world import World
@@ -23,14 +23,17 @@ class GameMain(object):
                     del handler
                     continue
                 new_connections[addr] = handler
-                if handler.auth and handler.run:
+                if handler.state and handler.run:
                     handler.send_data(VT100Codes.CLEARSCRN)
                     handler.send_data(VT100Codes.JMPHOME)
                     handler.send_data(Header.write(addr))
                     handler.send_data(OnlineUsers.write(self.game_server.connections.values()))
                     handler.send_data(Character.write(handler))
-                    handler.send_data(handler.entity.render_world())
-                    handler.send_data(Info.write(handler.user))
+                    if handler.state == States.WORLD:
+                        handler.send_data(handler.entity.render_world())
+                        handler.send_data(Info.write(handler.user))
+                    elif handler.state == States.INVENTORY:
+                        handler.send_data(Inventory.write(handler.user))
                     handler.run = False
             self.game_server.connections = new_connections
             asyncore.loop(timeout = 0.1, count = 1)

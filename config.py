@@ -1,4 +1,5 @@
 from data.models import *
+from lib.static import Colors, set_color
 import json
 
 # random world seed ...
@@ -46,7 +47,7 @@ class User(object):
     def items(self, value):
         item = Items.get(Items.name == value.name)
         try:
-            char_item = CharItem.select().where((CharItem.char == self.char) & (CharItem.item == item))
+            char_item = CharItem.get((CharItem.char == self.char) & (CharItem.item == item))
             char_item.amount += 1
             char_item.save()
         except:
@@ -55,6 +56,10 @@ class User(object):
     def remove_items(self, items):
         for i in items:
             self._items.remove(i)
+
+    def item_amount(self, item):
+        i = Items.get(Items.name == item.name)
+        return CharItem.get((CharItem.char == self.char) & (CharItem.item == i)).amount
 
     @property
     def info(self):
@@ -139,14 +144,19 @@ class User(object):
 
 class Item(object):
     def __init__(self, name, attributes):
-        self.name = name
+        self._name = name
         self._readname = attributes['name']
         self._level = attributes['level']
         self._attributes = attributes['attributes']
         self._rate = attributes['rate']
         self._enemies = attributes['enemies']
         self._condition = attributes['condition']
+        self._category = attributes['category']
         # FIXME: link to useable classes
+
+    @property
+    def name(self):
+        return self._name
 
     @property
     def readname(self):
@@ -172,13 +182,24 @@ class Item(object):
     def condition(self):
         return self._condition
 
+    @property
+    def category(self):
+        return self._category
+
 class Enemy(object):
     def __init__(self, name,  attributes):
-        self.name = name
+        self._name = name
         self._health = attributes['health']
         self._level = attributes['level']
         self._sign = attributes['sign']
+        self._colored_sign = attributes['sign']
         self._etype = attributes['type']
+        if self._etype in (3, ):
+            self._colored_sign = set_color(self._sign, Colors.REDBOLD)
+
+    @property
+    def name(self):
+        return self._name
 
     @property
     def health(self):
@@ -194,6 +215,10 @@ class Enemy(object):
     @property
     def sign(self):
         return self._sign
+
+    @property
+    def colored_sign(self):
+        return self._colored_sign
 
     @property
     def etype(self):

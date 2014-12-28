@@ -52,7 +52,7 @@ class OnlineUsers(RenderBase):
     def write(handlers):
         users = []
         for handler in handlers:
-            if handler.username and handler.auth and not handler.shutdown:
+            if handler.username and handler.state and not handler.shutdown:
                 users.append(handler.username)
         users.sort()
         return 'Online Users: ' + ' '.join(users) + LINE
@@ -68,4 +68,21 @@ class Info(RenderBase):
         b = user.info
         user.info = ''
         return '%s' % b
+
+class Inventory(RenderBase):
+    @staticmethod
+    def write(user):
+        data = '\nEquipment:\n'
+        equipment = []
+        potion = []
+        for item in user.items:
+            if item.category == 0:
+                equipment.append((item, user.item_amount(item)))
+            elif item.category == 1:
+                potion.append((item, user.item_amount(item)))
+
+        data += ', '.join([e[0].readname + ' ' + str(e[1]) + 'x' for e in equipment])
+
+        return data
+
 
