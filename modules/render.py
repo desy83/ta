@@ -72,7 +72,7 @@ class Info(RenderBase):
 class Inventory(RenderBase):
     @staticmethod
     def write(user):
-        data = '\nEquipment:\n'
+        data = '\nInventory:\n'
         equipment = []
         potion = []
         for item in user.items:

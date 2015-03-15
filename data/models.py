@@ -29,6 +29,19 @@ class Races(BaseModel):
     dexterity = IntegerField()
     wisdom = IntegerField()
 
+class Items(BaseModel):
+    name = CharField()
+    readname = CharField()
+    level = IntegerField()
+    health = IntegerField()
+    mana = IntegerField()
+    strength = IntegerField()
+    dexterity = IntegerField()
+    rate = IntegerField()
+    enemies = CharField()
+    defaultcondition = IntegerField()
+    category = IntegerField()
+
 class Char(BaseModel):
     user = ForeignKeyField(Users)
     #charclass = ForeignKeyField(Classes)
@@ -43,10 +56,9 @@ class Char(BaseModel):
     zonex = IntegerField()
     zoney = IntegerField()
 
-class Items(BaseModel):
-    name = CharField()
-
 class CharItem(BaseModel):
     char = ForeignKeyField(Char)
     item = ForeignKeyField(Items)
     amount = IntegerField()
+    condition = IntegerField()
+    equipped = BooleanField()

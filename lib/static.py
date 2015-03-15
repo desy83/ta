@@ -17,6 +17,8 @@ class Colors:
     YELLOW = ESC+"[0;33m"
     GREENBOLD = ESC+"[1;32m"
     GREEN = ESC+"[0;32m"
+    BLUEBOLD = ESC+"[1;34m"
+    BLUE = ESC+"[0;34m"
     RESET = ESC+"[0m"
 
 def set_color(tile, color):

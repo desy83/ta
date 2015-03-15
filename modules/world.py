@@ -5,12 +5,13 @@ import random
 from config import WORLD_SEED, config, Item, Enemy, User
 from copy import copy
 from lib.static import Colors
+from lib.pnoise import PerlinNoise
 
 ZONE_WIDTH = 48
 ZONE_HEIGHT = 18
 
 TILES = {
-    0: ' ', 1: Colors.GREEN+'#'+Colors.RESET
+    0: ' ', 1: Colors.GREEN+'#'+Colors.RESET, 2: Colors.BLUE+'~'+Colors.RESET, 3: '#'
 }
 
 #
@@ -184,11 +185,13 @@ class World(object):
 class Zone(object):
     def __init__(self, world, zone_x, zone_y):
         self.__set_seed(zone_x, zone_y)
+        self._zone_x = zone_x
+        self._zone_y = zone_y
         self._world = world
         self._tilemap = CellMap(ZONE_WIDTH, ZONE_HEIGHT)
         self._entitymap = CellMap(ZONE_WIDTH, ZONE_HEIGHT)
 
-        self.generate2()
+        self.generate3()
 
         for e in range(random.randint(0, 4)):
             enemy = config.enemies[random.choice(config.enemies.keys())]
@@ -203,13 +206,70 @@ class Zone(object):
     def __set_seed(self, zone_x, zone_y):
         random.seed(WORLD_SEED * (zone_x + zone_y))
 
+    def generate3(self):
+        def dig_path_connection_east_west(start, stop, step=1):
+            empty_count = 0
+            for i in range(start, stop, step):
+                if empty_count >= 3:
+                    return
+                for y in range(-1,2):
+                    t = self._tilemap.get_cell(i, h2+y)
+                    if t > 0:
+                        self._tilemap.set_cell(i, h2+y, 0)
+                    else:
+                        empty_count += 1
+
+        def dig_path_connection_north_south(start, stop, step=1):
+            empty_count = 0
+            for j in range(start, stop, step):
+                if empty_count >= 3:
+                    return
+                for x in range(-1,2):
+                    t = self._tilemap.get_cell(w2+x, j)
+                    if t > 0:
+                        self._tilemap.set_cell(w2+x, j, 0)
+                    else:
+                        empty_count += 1
+
+        w2 = int(ZONE_WIDTH / 2)
+        h2 = int(ZONE_HEIGHT / 2)
+        pn = PerlinNoise(WORLD_SEED * (self._zone_x + self._zone_y))
+        for i in range(0, ZONE_WIDTH): #x
+            for j in range(0, ZONE_HEIGHT): #y
+                x = float(j)/float(ZONE_HEIGHT)
+                y = float(i)/float(ZONE_WIDTH)
+
+                n = pn.noise(4 * x, 4 * y, 0.8)
+                # set different tiles
+                if n < 0.30:
+                    self._tilemap.set_cell(i, j, 2)
+                elif n >= 0.30 and n < 0.6:
+                    self._tilemap.set_cell(i, j, 0)
+                elif n >= 0.6 and n < 0.8:
+                    self._tilemap.set_cell(i, j, 1)
+                else:
+                    self._tilemap.set_cell(i, j, 3)
+
+                if i == 0 or i == ZONE_WIDTH-1:
+                    self._tilemap.set_cell(i, j, 1)
+
+                if j == 0 or j == ZONE_HEIGHT-1:
+                    self._tilemap.set_cell(i, j, 1)
+
+        dig_path_connection_east_west(0, ZONE_WIDTH)
+        dig_path_connection_east_west(ZONE_WIDTH-1, 0, -1)
+
+        dig_path_connection_north_south(0, ZONE_HEIGHT)
+        dig_path_connection_north_south(ZONE_HEIGHT-1, 0, -1)
+
+
     def generate2(self):
         # drunken walk path connection stuff :)
         w2 = int(ZONE_WIDTH / 2)
         h2 = int(ZONE_HEIGHT / 2)
         cx = w2 + random.randint(-5, 5)
         cy = h2 + random.randint(-3, 3)
-        sillyness = random.randint(8, 12)
+        sillyness = random.randint(1, 2)
         def connect(startx, starty, targetx, targety):
             x = startx
             y = starty
