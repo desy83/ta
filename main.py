@@ -33,7 +33,8 @@ class GameMain(object):
                         handler.send_data(handler.entity.render_world())
                         handler.send_data(Info.write(handler.user))
                     elif handler.state == States.INVENTORY:
-                        handler.send_data(Inventory.write(handler.user))
+                        handler.send_data(handler.inventory.write(handler.user))
+                    # logout state
                     handler.run = False
             self.game_server.connections = new_connections
             asyncore.loop(timeout = 0.1, count = 1)

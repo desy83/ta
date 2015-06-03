@@ -4,6 +4,7 @@ class States:
     AUTH = 0
     WORLD = 1
     INVENTORY = 2
+    LOGOUT = 3
 
 class VT100Codes:
     JMPHOME = ESC+"[H"
@@ -21,8 +22,14 @@ class Colors:
     BLUE = ESC+"[0;34m"
     RESET = ESC+"[0m"
 
+class BgColors:
+    RED = ESC+"[0;41m"
+
 def set_color(tile, color):
     return color+tile+Colors.RESET
+
+def set_background_text(text, color):
+    return color+text+Colors.RESET
 
 def check_ascii(characters):
     check = True

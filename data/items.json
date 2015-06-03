@@ -114,7 +114,7 @@
 		"rate": 1,
 		"enemies": [0, 1, 2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 1
 	},
 	"LowPowerStaff": {
 		"name": "Staff of low Power",
@@ -123,7 +123,7 @@
 		"rate": 1,
 		"enemies": [0, 1],
 		"condition": 100,
-		"category" : 0
+		"category" : 1
 	},
 	"SmallPowerStaff": {
 		"name": "Small Staff of Power",
@@ -132,7 +132,7 @@
 		"rate": 1,
 		"enemies": [1, 2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 1
 	},
 	"PowerStaff": {
 		"name": "Staff of Power",
@@ -141,7 +141,7 @@
 		"rate": 1,
 		"enemies": [1, 2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 1
 	},
 	"SmallMightyPowerStaff": {
 		"name": "Small Staff of mighty Power",
@@ -150,7 +150,7 @@
 		"rate": 1,
 		"enemies": [1, 2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 1
 	},
 	"MightyPowerStaff": {
 		"name": "Staff of mighty Power",
@@ -159,7 +159,7 @@
 		"rate": 1,
 		"enemies": [2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 1
 	},
 	"LigthIronArmor": {
 		"name": "ligth Iron Armor",
@@ -168,7 +168,7 @@
 		"rate": 1,
 		"enemies": [0, 1, 2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 1
 	},
 	"MediumIronArmor": {
 		"name": "Medium Iron Armor",
@@ -177,7 +177,7 @@
 		"rate": 1,
 		"enemies": [1, 2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 1
 	},
 	"HeavyIronArmor": {
 		"name": "Heavy Iron Armor",
@@ -186,7 +186,7 @@
 		"rate": 1,
 		"enemies": [2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 1
 	},
 	"LigthLetherArmor": {
 		"name": "Ligth Lether Armor",
@@ -195,7 +195,7 @@
 		"rate": 1,
 		"enemies": [0, 1, 2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 1
 	},
 	"MediumLetherArmor": {
 		"name": "Medium Lether Armor",
@@ -204,7 +204,7 @@
 		"rate": 1,
 		"enemies": [1, 2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 1
 	},
 	"HeavyLetherArmor": {
 		"name": "Heavy Lether Armor",
@@ -213,7 +213,7 @@
 		"rate": 5,
 		"enemies": [2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 1
 	},
 	"LowPowerLinenRobe": {
 		"name": "Linen Robe of low Power",
@@ -222,7 +222,7 @@
 		"rate": 1,
 		"enemies": [0, 1, 2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 1
 	},
 	"PowerLinenRobe": {
 		"name": "Linen Robe of Power",
@@ -231,7 +231,7 @@
 		"rate": 1,
 		"enemies": [1, 2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 1
 	},
 	"StrongPowerLinenRobe": {
 		"name": "Linen Robe of Strong Power",
@@ -240,7 +240,7 @@
 		"rate": 1,
 		"enemies": [2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 1
 	},
 	"AmuletOfWisdom": {
 		"name": "Amulet of Wisdom",
@@ -249,7 +249,7 @@
 		"rate": 1,
 		"enemies": [1, 2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 2
 	},
 	"AmuletOfQuickness": {
 		"name": "Amulet of Quickness",
@@ -258,7 +258,7 @@
 		"rate": 1,
 		"enemies": [1, 2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 2
 	},
 	"AmuletOfStrength": {
 		"name": "Amulet of Strength",
@@ -267,7 +267,7 @@
 		"rate": 1,
 		"enemies": [1, 2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 2
 	},
 	"CursedAmuletOfWisdom": {
 		"name": "Cursed Amulet Of Wisdom",
@@ -276,7 +276,7 @@
 		"rate": 1,
 		"enemies": [2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 2
 	},
 	"CursedAmuletOfQuickness": {
 		"name": "Cursed Amulet Of Wisdom",
@@ -285,7 +285,7 @@
 		"rate": 1,
 		"enemies": [2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 2
 	},
 	"CursedAmuletOfStrength": {
 		"name": "Cursed Amulet Of Strength",
@@ -294,7 +294,7 @@
 		"rate": 1,
 		"enemies": [2, 3],
 		"condition": 100,
-		"category" : 0
+		"category" : 2
 	},
 	"SmallHealthPot": {
 		"name": "Small Potion of Healing",
@@ -303,7 +303,7 @@
 		"rate": 10,
 		"enemies": [0, 1, 2, 3],
 		"condition": 100,
-		"category": 1
+		"category": 3
 	},
 	"MiddleHealthPot": {
 		"name": "Middle Potion of Healing",
@@ -312,7 +312,7 @@
 		"rate": 10,
 		"enemies": [1, 2, 3],
 		"condition": 100,
-		"category": 1
+		"category": 3
 	},
 	"BigHealthPot": {
 		"name": "Big Potion of Healing",
@@ -321,33 +321,33 @@
 		"rate": 10,
 		"enemies": [2, 3],
 		"condition": 100,
-		"category": 1
+		"category": 3
 	},
 	"SmallManaPot": {
 		"name": "Small Potion of Mana",
 		"level": 1,
-		"attributes": [0, 0, 0, 0],
+		"attributes": [0, 3, 0, 0],
 		"rate": 10,
 		"enemies": [0, 1, 2, 3],
 		"condition": 100,
-		"category": 1
+		"category": 3
 	},
 	"MiddleManaPot": {
 		"name": "Middle Potion of Mana",
 		"level": 3,
-		"attributes": [0, 0, 0, 0],
+		"attributes": [0, 6, 0, 0],
 		"rate": 10,
 		"enemies": [1, 2, 3],
 		"condition": 100,
-		"category": 1
+		"category": 3
 	},
 	"BigManaPot": {
 		"name": "Big Potion of Mana",
 		"level": 5,
-		"attributes": [0, 0, 0, 0],
+		"attributes": [0, 9, 0, 0],
 		"rate": 10,
 		"enemies": [2, 3],
 		"condition": 100,
-		"category": 1
+		"category": 3
 	}
 }

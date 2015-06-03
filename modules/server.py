@@ -1,4 +1,4 @@
-from modules.render import Header, Auth, Welcome
+from modules.render import Header, Auth, Welcome, Inventory
 from config import *
 from lib.static import *
 
@@ -28,6 +28,7 @@ class GameHandler(asyncore.dispatcher_with_send):
         self.send(Welcome.write(address))
         self.send(Auth.username())
         self.last_time = time.time()
+        self.inventory = Inventory()
 
     def tick(self):
         current_time = time.time()
@@ -107,6 +108,8 @@ class GameHandler(asyncore.dispatcher_with_send):
 
             else:
                 key = datastrip
+                if key in ('\x1b^['):
+                    self.handle_close()
                 # World Keyset
                 if self.state == States.WORLD:
                     if key in ('w', 'W', '\x1b[A'):
@@ -127,6 +130,10 @@ class GameHandler(asyncore.dispatcher_with_send):
                 elif self.state == States.INVENTORY:
                     if key in ('i', 'I'):
                         self.state = States.WORLD
+                    elif key in ('\x1b[A'):
+                        self.inventory.selected_index -= 1
+                    elif key in ('\x1b[B'):
+                        self.inventory.selected_index += 1
 
                 self.server.run_all_handler()
 

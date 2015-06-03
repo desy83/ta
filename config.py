@@ -36,30 +36,47 @@ class User(object):
 
     @property
     def items(self):
-        query = CharItem.select().where(CharItem.char == self.char)
+        query = CharItem.select(CharItem, Items).join(Items).where(CharItem.char == self.char)
         item_list = []
         for char_item in query:
-            item_list.append(config.items[char_item.item.name])
+            item_list.append(char_item)
         return item_list
         #return [config.items[char_item.item.name] for char_item in CharItem.get(CharItem.char == self.char)]
 
     @items.setter
     def items(self, value):
         item = Items.get(Items.name == value.name)
-        try:
-            char_item = CharItem.get((CharItem.char == self.char) & (CharItem.item == item))
-            char_item.amount += 1
+        CharItem.create(char=self.char, item=item, condition=item.condition, equipped=False)
+
+    def equip_item(self, value):
+        item = Items.get(Items.name == value.name)
+        char_item = CharItem.select().join(Items).where((CharItem.char == self.char) & (Items.category == value.category) & (CharItem.equipped == True))
+        citem = CharItem.get((CharItem.char == self.char) & (CharItem.item == item))
+        if char_item.count() == 0:
+            citem.equipped = True
+            citem.save()
+        else:
+            char_item.equipped = False
             char_item.save()
-        except:
-            CharItem.create(char=self.char, item=item, amount=1)
+            citem.equipped = True
+            citem.save()
 
     def remove_items(self, items):
         for i in items:
             self._items.remove(i)
 
     def item_amount(self, item):
-        i = Items.get(Items.name == item.name)
-        return CharItem.get((CharItem.char == self.char) & (CharItem.item == i)).amount
+        i = Items.get(Items.name == item.item.name)
+        query = CharItem.select().where((CharItem.char == self.char) & (CharItem.item == i))
+        return query.count()
+
+    def get_equipped_armor(self):
+        try:
+            char_item = CharItem.select().join(Items).where((CharItem.char == self.char) & (Items.category == 1) & (CharItem.equipped == True)).get()
+            return char_item
+        except:
+            return None
+
 
     @property
     def info(self):
@@ -246,8 +263,10 @@ class Config(object):
             self.items[name] = Item(name, attributes)
 
         if not Items.select().count():
-            for key in items.keys():
-                Items.create(name = key)
+            for k, v in items.items():
+                attributes = v['attributes']
+                Items.create(name = k, readname = v['name'], level = v['level'], health = attributes[0], mana = attributes[1], strength = attributes[2], dexterity = attributes[3], rate = v['rate'], enemies = v['enemies'], condition = v['condition'], category = v['category'])
+
 
         @property
         def enemies(self):

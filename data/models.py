@@ -39,7 +39,7 @@ class Items(BaseModel):
     dexterity = IntegerField()
     rate = IntegerField()
     enemies = CharField()
-    defaultcondition = IntegerField()
+    condition = IntegerField()
     category = IntegerField()
 
 class Char(BaseModel):
@@ -59,6 +59,5 @@ class Char(BaseModel):
 class CharItem(BaseModel):
     char = ForeignKeyField(Char)
     item = ForeignKeyField(Items)
-    amount = IntegerField()
     condition = IntegerField()
     equipped = BooleanField()
