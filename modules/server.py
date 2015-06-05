@@ -79,7 +79,8 @@ class GameHandler(asyncore.dispatcher_with_send):
                             px, py = self.world.get_zone(char.zonex, char.zoney).find_free_place()
                             self.entity = self.world.add_entity(char.zonex, char.zoney, px, py, set_color("@", Colors.YELLOWBOLD)) # player entity
                             self.world.get_zone(char.zonex, char.zoney).set_entity(self.entity)
-                            self.user = User(self.username, self.entity, char)
+                            self.user = User(self.username, self.entity, char, self.inventory)
+                            self.inventory.fetch_item_count(self.user)
                             self.entity.basis = self.user
                         elif self.password and self.password <> datastrip:
                             self.authstep = 0
@@ -96,7 +97,8 @@ class GameHandler(asyncore.dispatcher_with_send):
                                 px, py = self.world.get_zone(char.zonex, char.zoney).find_free_place()
                                 self.entity = self.world.add_entity(char.zonex, char.zoney, px, py, set_color("@", Colors.YELLOWBOLD)) # player entity
                                 self.world.get_zone(char.zonex, char.zoney).set_entity(self.entity)
-                                self.user = User(self.username, self.entity, char)
+                                self.user = User(self.username, self.entity, char, self.inventory)
+                                self.inventory.fetch_item_count(self.user)
                                 self.entity.basis = self.user
                             except Exception, e:
                                 print e
@@ -130,10 +132,32 @@ class GameHandler(asyncore.dispatcher_with_send):
                 elif self.state == States.INVENTORY:
                     if key in ('i', 'I'):
                         self.state = States.WORLD
-                    elif key in ('\x1b[A'):
-                        self.inventory.selected_index -= 1
-                    elif key in ('\x1b[B'):
-                        self.inventory.selected_index += 1
+                    elif key in ('\x1b[D', '\x1b[A'):
+                        if self.inventory.selected_index > -3:
+                            self.inventory.selected_index -= 1
+                    elif key in ('\x1b[C', '\x1b[B'):
+                        if self.inventory.selected_index < self.inventory.item_count -1:
+                            self.inventory.selected_index += 1
+                    elif key in ('e', 'E'):
+                        section, selected_charitem = self.inventory.get_selected_charitem()
+                        if selected_charitem:
+                            if section == ItemSection.EQUIPPED:
+                                if self.inventory.item_count < 8:
+                                    self.user.unequip_item(selected_charitem.item)
+                                else:
+                                    self.inventory.info_text = 'just can carry %s items' % (self.inventory.item_count,)
+                            elif section == ItemSection.EQUIPMENT:
+                                self.user.equip_item(selected_charitem.item)
+                            elif section == ItemSection.POTION:
+                                self.user.health = self.user.health + selected_charitem.item.health
+                                self.user.mana = self.user.mana + selected_charitem.item.mana
+                                self.user.strength = self.user.strength + selected_charitem.item.strength
+                                self.user.dexterity = self.user.dexterity + selected_charitem.item.dexterity
+                                self.user.delete_charitem(selected_charitem)
+                    elif key in ('d', 'D'):
+                        section, char_item = self.inventory.get_selected_charitem()
+                        if char_item:
+                            self.user.delete_charitem(char_item)
 
                 self.server.run_all_handler()
 

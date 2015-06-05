@@ -25,6 +25,11 @@ class Colors:
 class BgColors:
     RED = ESC+"[0;41m"
 
+class ItemSection:
+    EQUIPPED = 0
+    EQUIPMENT = 1
+    POTION = 2
+
 def set_color(tile, color):
     return color+tile+Colors.RESET
 

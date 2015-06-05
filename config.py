@@ -17,7 +17,7 @@ class ReadJson(object):
             print e
 
 class User(object):
-    def __init__(self, name, entity, char):
+    def __init__(self, name, entity, char, inventory):
         self._username = name
         self.entity = entity
         self._items = []
@@ -25,6 +25,7 @@ class User(object):
         self.char = char
         self.maxhealth = ATTRIBUTES['health'] + char.level * 2
         self.maxmana = ATTRIBUTES['mana'] + char.level
+        self.inventory = inventory
 
     @property
     def username(self):
@@ -43,6 +44,13 @@ class User(object):
         return item_list
         #return [config.items[char_item.item.name] for char_item in CharItem.get(CharItem.char == self.char)]
 
+    def get_items_by_categories(self, categories = None):
+        query = CharItem.select(CharItem, Items).join(Items).where((CharItem.char == self.char) & (Items.category << categories if categories else True) & (CharItem.equipped == False)).group_by(Items.name)
+        item_list = []
+        for char_item in query:
+            item_list.append(char_item)
+        return item_list
+
     @items.setter
     def items(self, value):
         item = Items.get(Items.name == value.name)
@@ -56,27 +64,40 @@ class User(object):
             citem.equipped = True
             citem.save()
         else:
+            char_item = char_item.get()
             char_item.equipped = False
             char_item.save()
             citem.equipped = True
             citem.save()
 
+    def unequip_item(self, value):
+        item = Items.get(Items.name == value.name)
+        char_item = CharItem.select().join(Items).where((CharItem.char == self.char) & (Items.category == value.category) & (CharItem.equipped == True)).get()
+        char_item.equipped = False
+        char_item.save()
+
+    def delete_charitem(self, value):
+        value.delete_instance()
+
     def remove_items(self, items):
         for i in items:
             self._items.remove(i)
+
+    def items_amount(self):
+        return CharItem.select(CharItem, Items).join(Items).where((CharItem.char == self.char) & (CharItem.equipped == False)).group_by(Items.name).count()
+
 
     def item_amount(self, item):
         i = Items.get(Items.name == item.item.name)
         query = CharItem.select().where((CharItem.char == self.char) & (CharItem.item == i))
         return query.count()
 
-    def get_equipped_armor(self):
+    def get_equipped_item_by_category(self, category):
         try:
-            char_item = CharItem.select().join(Items).where((CharItem.char == self.char) & (Items.category == 1) & (CharItem.equipped == True)).get()
+            char_item = CharItem.select().join(Items).where((CharItem.char == self.char) & (Items.category == category) & (CharItem.equipped == True)).get()
             return char_item
         except:
             return None
-
 
     @property
     def info(self):

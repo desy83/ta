@@ -73,51 +73,98 @@ class Info(RenderBase):
 class Inventory(RenderBase):
 
     def __init__(self):
-        self.selected_index = 0
+        self.selected_index = -3
         self.equipment = []
         self.potion = []
-        self.equipped = []
+        self.equipped = {}
         self.data = None
+        self.item_count = 0
+        self.info_text = None
 
-    def __render_hero(self):
-        return '  O\t Armor: %s\n' % () + ' /=Y=\\tWeapon: %s\n' % () + '  / \\tJewelry: %s\n' % ()
+    def fetch_item_count(self, user):
+        self.item_count = user.items_amount()
 
     def __render_items(self):
-        self.data += '\nEquipped:\n'
-        for e in self.equipped:
+        self.data = '\nCharacter:\n'
+        for _, e in self.equipped.items():
             if e[0] == self.selected_index:
-                self.data += set_background_text(e[1].item.readname if e[1] else 'None\n', BgColors.RED)
+                self.data += e[2] % (set_background_text('%s\n' % (e[1].item.readname,) if e[1] else 'None\n', BgColors.RED),)
             else:
-                self.data += e[1].item.readname if e[1] else 'None\n'
+                self.data += e[2] % ('%s\n' % (e[1].item.readname,) if e[1] else 'None\n',)
         self.data += '\nEquipment:\n'
-        for e in self.equipment:
-            if e[0] == self.selected_index:
-                self.data += set_background_text('%s %s\n' % (str(e[2]), e[1].item.readname), BgColors.RED)
-            else:
-                self.data += '%s %s\n' % (str(e[2]), e[1].item.readname)
+        #items = []
+        #item_break = 0
+        if not self.equipment:
+            self.data += 'None\n'
+        else:
+            for e in self.equipment:
+                '''
+                item_break += len(e[1].item.readname) + 5
+                if item_break > 40:
+                    item_break_symbol = '\n'
+                else:
+                    item_break_symbol = ''
+                '''
+                if e[0] == self.selected_index:
+                    self.data += set_background_text('%sx %s\n' % (str(e[2]), e[1].item.readname), BgColors.RED)
+                else:
+                    self.data += '%sx %s\n' % (str(e[2]), e[1].item.readname)
+            #self.data += ', '.join(items)
         self.data += '\nPotions:\n'
-        for e in self.potion:
-            if e[0] == self.selected_index:
-                self.data += set_background_text('%s %s\n' % (str(e[2]), e[1].item.readname), BgColors.RED)
-            else:
-                self.data += '%s %s\n' % (str(e[2]), e[1].item.readname)
+        #items = []
+        if not self.potion:
+            self.data += 'None\n'
+        else:
+            for e in self.potion:
+                if e[0] == self.selected_index:
+                    self.data += set_background_text('%sx %s\n' % (str(e[2]), e[1].item.readname), BgColors.RED)
+                else:
+                    self.data += '%sx %s\n' % (str(e[2]), e[1].item.readname)
+            #self.data += ', '.join(items)
 
+    def get_selected_charitem(self):
+
+        if self.selected_index == -3:
+            return (ItemSection.EQUIPPED, self.equipped.get('armor')[1])
+        elif self.selected_index == -2:
+            return (ItemSection.EQUIPPED, self.equipped.get('weapon')[1])
+        elif self.selected_index == -1:
+            return (ItemSection.EQUIPPED, self.equipped.get('jewelry')[1])
+        else:
+            for e in self.equipment:
+                if self.selected_index == e[0]:
+                    return (ItemSection.EQUIPMENT, e[1])
+            for e in self.potion:
+                if self.selected_index == e[0]:
+                    return (ItemSection.POTION, e[1])
+        return (None, None)
 
     def write(self, user):
         self.equipment = []
         self.potion = []
-        self.equipped = []
-        self.data = '\nInventory:\n'
-        for index, char_item in enumerate(user.items):
-            if char_item.item.category in [0, 1, 2]:
-                self.equipment.append((index, char_item, user.item_amount(char_item)))
-            elif char_item.item.category == 3:
-                self.potion.append((index, char_item, user.item_amount(char_item)))
+        self.equipped = {}
+        for index, char_item in enumerate(user.get_items_by_categories([0, 1, 2])):
+            self.equipment.append((index, char_item, user.item_amount(char_item)))
+        for index, char_item in enumerate(user.get_items_by_categories([3]), len(self.equipment)):
+            self.potion.append((index, char_item, user.item_amount(char_item)))
 
-        #data += ', '.join([e[0].item.readname + ' ' + str(e[1]) + 'x' for e in equipment])
-        self.equipped.append((-3, user.get_equipped_armor()))
+        self.item_count = len(self.equipment) + len(self.potion)
+
+        self.equipped['armor'] = (-3, user.get_equipped_item_by_category(1), '   O\t Armor: %s')
+        self.equipped['weapon'] = (-2, user.get_equipped_item_by_category(0), ' /=Y=\ \t Weapon: %s')
+        self.equipped['jewelry'] = (-1, user.get_equipped_item_by_category(2), '  / \ \t Jewelry: %s')
 
         self.__render_items()
+        len_equipment = len(self.equipment) if len(self.equipment) else 1
+        len_potion = len(self.potion) if len(self.potion) else 1
+        line_breaks = (9-(len_equipment+len_potion))*'\n'
+        if self.info_text:
+            self.data += '%s%s' % (line_breaks, self.info_text)
+            self.info_text = None
+        else:
+            _, selected_charitem = self.get_selected_charitem()
+            if selected_charitem:
+                self.data += '%sL:%s, C:%s, H:%s, M:%s, S:%s, D:%s' % (line_breaks, selected_charitem.item.level, selected_charitem.item.condition, selected_charitem.item.health, selected_charitem.item.mana, selected_charitem.item.strength, selected_charitem.item.dexterity)
 
         return self.data
 

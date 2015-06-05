@@ -376,8 +376,14 @@ class Zone(object):
                     caller.basis.level = (caller.basis.experience/1000)+1
                 return block
             elif type(entity.basis) is Item:
-                caller.basis.items = entity.basis
-                caller.basis.info = 'found %s' % entity.basis.readname
+                item_count = caller.basis.inventory.item_count
+                if item_count < 8:
+                    caller.basis.items = entity.basis
+                    caller.basis.info = 'found %s' % entity.basis.readname
+                    return False
+                else:
+                    caller.basis.info = 'found %s. you carry %s items, cant carry any more' % (entity.basis.readname, str(item_count))
+                    return True
             else:
                 return True
         return False
