@@ -17,3 +17,5 @@ Multiple User Dungeon (MUD)
 ## Client
 -  install telnet client
 - `telnet localhost 6900`
+
+![ta2](https://user-images.githubusercontent.com/11294106/133441521-58e87683-5ee8-421a-a1bf-2167ee4264d0.png)
